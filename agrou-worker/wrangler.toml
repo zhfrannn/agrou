@@ -1,0 +1,15 @@
+name = "agrou-ai-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Public: list of allowed origins (no secrets here)
+ALLOWED_ORIGINS = "http://localhost:3000,https://agrou.pages.dev"
+
+# Secrets — set via CLI, never committed:
+#   wrangler secret put ANTHROPIC_API_KEY
+
+# Optional rate limiting via KV (uncomment after creating the namespace):
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "YOUR_KV_NAMESPACE_ID"

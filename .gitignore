@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+agrou/node_modules/
+
+# Build outputs
+agrou/dist/
+agrou-worker/dist/
+
+# Environment variables - JANGAN COMMIT
+.env
+.env.local
+.env.*.local
+agrou/.env
+agrou/.env.local
+agrou/.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vite
+agrou/.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# Wrangler
+agrou-worker/.wrangler/
