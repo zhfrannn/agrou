@@ -1,0 +1,8 @@
+{
+  "name": "Agrou",
+  "description": "Indonesian agro marine marketplace platform featuring Agrou Shield and Agrou Brand.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

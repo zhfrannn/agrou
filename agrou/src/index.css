@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════
+   AGROU — Design System Tokens
+   ══════════════════════════════════════════════════ */
+
+/* ── Tailwind Theme Integration ── */
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+/* ── Colour Palette Tokens ── */
+:root {
+  /* Forest greens */
+  --color-forest: #1a3d2e;
+  --color-forest-mid: #2d6a4f;
+  --color-forest-dark: #0d2918;
+
+  /* Lime — neon accent */
+  --color-lime: #b5f23d;
+  --color-lime-dark: #9fcb1f;
+
+  /* Orange — CTA, price, urgency */
+  --color-orange: #f77f00;
+  --color-orange-dark: #c75f00;
+
+  /* Surfaces */
+  --color-cream: #fdf8f0;
+  --color-surface: #ffffff;
+
+  /* Text */
+  --color-text-primary: #1a2e1a;
+  --color-text-secondary: #5a7a5a;
+  --color-text-on-dark: #fdf8f0;
+
+  /* Border */
+  --color-border: #e8ede8;
+
+  /* Category card solid colours */
+  --color-card-sayuran: #2d6a4f;
+  --color-card-seafood: #1a5276;
+  --color-card-rempah: #c0392b;
+  --color-card-pangan: #b7950b;
+  --color-card-herbal: #6c3483;
+
+  /* ── Spacing System ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* ── Border Radius ── */
+  --radius-card: 20px;
+  --radius-pill: 100px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+}
+
+/* ── Global Font — Plus Jakarta Sans for all body text ── */
+*,
+*::before,
+*::after {
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0em;
+}
+
+/* ── Display headings — Playfair Display ── */
+h1,
+h2,
+h3,
+.font-display,
+[class*="font-display"],
+.font-serif,
+[class*="font-serif"] {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+/* ── Body Background — cream warm editorial ── */
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+/* ── Global card radius softener — override Tailwind inline rounded utils ── */
+.rounded-2xl {
+  border-radius: var(--radius-card) !important;
+}
+
+.rounded-3xl {
+  border-radius: 24px !important;
+}
+
+.rounded-xl {
+  border-radius: 14px !important;
+}
+
+.rounded-lg {
+  border-radius: 10px !important;
+}
+
+/* ── Shadow system — subtle, modern depth ── */
+.shadow-md {
+  box-shadow: 0 2px 12px rgba(26, 61, 46, 0.10) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 24px rgba(26, 61, 46, 0.12) !important;
+}
+
+.shadow-xl {
+  box-shadow: 0 8px 36px rgba(26, 61, 46, 0.14) !important;
+}
+
+.shadow-2xl {
+  box-shadow: 0 16px 56px rgba(26, 61, 46, 0.18) !important;
+}
+
+/* ── Scrollbar styling — minimal, on-brand ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 61, 46, 0.20);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 61, 46, 0.38);
+}
+
+/* ── Hide scrollbar utility ── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── Selection color — lime on forest ── */
+::selection {
+  background: var(--color-lime);
+  color: var(--color-forest-dark);
+}
+
+/* ── Global link style ── */
+a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
