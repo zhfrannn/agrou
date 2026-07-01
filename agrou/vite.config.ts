@@ -9,11 +9,14 @@ const srcAssetsDir = path.resolve(__dirname, 'src/assets');
 if (!fs.existsSync(srcAssetsDir)) {
   fs.mkdirSync(srcAssetsDir, { recursive: true });
 }
-const srcBgPath = path.resolve(__dirname, 'assets/gro-ai-bg.jpg');
-const destBgPath = path.resolve(srcAssetsDir, 'gro-ai-bg.jpg');
-if (fs.existsSync(srcBgPath) && !fs.existsSync(destBgPath)) {
-  fs.copyFileSync(srcBgPath, destBgPath);
-}
+const assetsToCopy = ['gro-ai-bg.jpg', 'sidebar-kiri-a.png', 'sidebar-kanan-a.png', 'sidebar-kiri-b.png', 'sidebar-kanan-b.png'];
+assetsToCopy.forEach((file) => {
+  const srcPath = path.resolve(__dirname, 'assets', file);
+  const destPath = path.resolve(srcAssetsDir, file);
+  if (fs.existsSync(srcPath) && !fs.existsSync(destPath)) {
+    fs.copyFileSync(srcPath, destPath);
+  }
+});
 
 export default defineConfig(() => {
   return {

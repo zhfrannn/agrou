@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   MessageSquare,
@@ -1105,7 +1105,10 @@ export default function TaniPage() {
     isLoading: isLoadingProducts,
     error: productsError,
   } = useShieldProducts();
-  const gridProducts: GridProduct[] =
+
+  // Map DB products, then fill remaining slots with static fallback products
+  // to guarantee we always have >= 6 items (needed by FeaturedProductCard slots)
+  const dbMapped: GridProduct[] =
     !productsError && dbShieldProducts && dbShieldProducts.length > 0
       ? dbShieldProducts.map((p: any) => ({
           id: p.id,
@@ -1120,7 +1123,16 @@ export default function TaniPage() {
             p.images?.[0] ??
             "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=300",
         }))
-      : GRID_PRODUCTS;
+      : [];
+
+  // Merge DB products with static products; if DB has fewer than 6, pad with static
+  const gridProducts: GridProduct[] =
+    dbMapped.length >= 6
+      ? dbMapped
+      : [
+          ...dbMapped,
+          ...GRID_PRODUCTS.slice(dbMapped.length),
+        ];
   const [trendTab, setTrendTab] = useState("Semua");
   const [popTab, setPopTab] = useState("Semua");
   const [trendPage, setTrendPage] = useState(0);

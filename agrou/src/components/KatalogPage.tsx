@@ -1,4 +1,5 @@
 ﻿import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useSearchParams } from "react-router-dom";
 import {
   Star,
@@ -8,11 +9,13 @@ import {
   Filter,
   X,
   ChevronDown,
+  Bot,
 } from "lucide-react";
 import { useProducts } from "../lib/queries/products";
 import { ProductCardSkeleton } from "./ui/LoadingSkeleton";
 import { ErrorState } from "./ui/ErrorState";
 import { EmptyState } from "./ui/EmptyState";
+import DiagnosisChatbot from "./DiagnosisChatbot";
 
 // ─── TYPES ─────────────────────────────────────────────────────────────────
 
@@ -434,6 +437,7 @@ export default function KatalogPage() {
   const [activeSort, setActiveSort] = useState("Populer");
   const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilter, setShowMobileFilter] = useState(false);
+  const [showDiagnosis, setShowDiagnosis] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     komoditas: [],
     tipe: [],
@@ -534,141 +538,231 @@ export default function KatalogPage() {
     );
 
   return (
-    <div className="w-full bg-gray-50 min-h-screen font-sans">
-      <div className="max-w-360 mx-auto px-4 sm:px-6 py-6">
-        {/* Mobile filter toggle */}
-        <div className="lg:hidden mb-4">
-          <button
-            onClick={() => setShowMobileFilter(!showMobileFilter)}
-            className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-700 shadow-sm"
-          >
-            <Filter size={15} />
-            {showMobileFilter ? "Sembunyikan Filter" : "Tampilkan Filter"}
-          </button>
-        </div>
-
-        <div className="flex gap-5 items-start">
-          {/* ── LEFT: Filter Panel ── */}
-          <div
-            className={`${showMobileFilter ? "block" : "hidden"} lg:block w-full lg:w-55 xl:w-62.5 shrink-0 sticky top-17.5`}
-          >
-            <FilterPanel
-              activeCategory={activeCategory}
-              onCategoryChange={handleCategoryChange}
-              filters={filters}
-              onFiltersChange={handleFiltersChange}
-            />
+    <>
+      <div className="w-full bg-gray-50 min-h-screen font-sans">
+        <div className="max-w-360 mx-auto px-4 sm:px-6 py-6">
+          {/* Mobile filter toggle */}
+          <div className="lg:hidden mb-4">
+            <button
+              onClick={() => setShowMobileFilter(!showMobileFilter)}
+              className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-700 shadow-sm"
+            >
+              <Filter size={15} />
+              {showMobileFilter ? "Sembunyikan Filter" : "Tampilkan Filter"}
+            </button>
           </div>
 
-          {/* ── RIGHT: Sort bar + Grid ── */}
-          <div className="flex-1 min-w-0">
-            {/* Sort bar */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-gray-500 text-sm">
-                <span className="font-bold text-gray-800">
-                  {filtered.length}
-                </span>{" "}
-                produk ditemukan
-              </p>
-
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-gray-500 text-xs font-medium">
-                  Urutkan:
-                </span>
-                {SORT_OPTIONS.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => handleSortChange(s)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                      activeSort === s
-                        ? "bg-[#F97316] text-white shadow-sm"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-
-              {/* Pagination nav */}
-              <div className="flex items-center gap-2 text-sm">
-                <span className="text-gray-500 text-xs font-medium">
-                  {currentPage}/{totalPages}
-                </span>
-                <button
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-40 flex items-center justify-center transition-colors"
-                >
-                  <ChevronLeft size={14} />
-                </button>
-                <button
-                  onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-40 flex items-center justify-center transition-colors"
-                >
-                  <ChevronRight size={14} />
-                </button>
-              </div>
+          <div className="flex gap-5 items-start">
+            {/* ── LEFT: Filter Panel ── */}
+            <div
+              className={`${showMobileFilter ? "block" : "hidden"} lg:block w-full lg:w-55 xl:w-62.5 shrink-0 sticky top-17.5`}
+            >
+              <FilterPanel
+                activeCategory={activeCategory}
+                onCategoryChange={handleCategoryChange}
+                filters={filters}
+                onFiltersChange={handleFiltersChange}
+              />
             </div>
 
-            {/* Product grid — 5 columns */}
-            {paginated.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
-                {paginated.map((prod) => (
-                  <ProductCard key={prod.id} prod={prod} />
-                ))}
-              </div>
-            ) : (
-              <EmptyState
-                title="Produk tidak ditemukan"
-                description="Coba ubah filter atau kata kunci pencarian"
-              />
-            )}
+            {/* ── RIGHT: Sort bar + Grid ── */}
+            <div className="flex-1 min-w-0">
+              {/* Sort bar */}
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-gray-500 text-sm">
+                  <span className="font-bold text-gray-800">
+                    {filtered.length}
+                  </span>{" "}
+                  produk ditemukan
+                </p>
 
-            {/* Bottom pagination */}
-            {paginated.length > 0 && (
-              <div className="flex justify-center items-center gap-2 mt-6">
-                <button
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 flex items-center justify-center shadow-sm transition-colors"
-                >
-                  <ChevronLeft size={16} />
-                </button>
-
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (pg) => (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-gray-500 text-xs font-medium">
+                    Urutkan:
+                  </span>
+                  {SORT_OPTIONS.map((s) => (
                     <button
-                      key={pg}
-                      onClick={() => setCurrentPage(pg)}
-                      className={`w-9 h-9 rounded-full text-sm font-bold transition-all ${
-                        pg === currentPage
-                          ? "bg-[#1B4D3E] text-white shadow-md"
-                          : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                      key={s}
+                      onClick={() => handleSortChange(s)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                        activeSort === s
+                          ? "bg-[#F97316] text-white shadow-sm"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                       }`}
                     >
-                      {pg}
+                      {s}
                     </button>
-                  ),
-                )}
+                  ))}
+                </div>
 
-                <button
-                  onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 flex items-center justify-center shadow-sm transition-colors"
-                >
-                  <ChevronRight size={16} />
-                </button>
+                {/* Pagination nav */}
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-gray-500 text-xs font-medium">
+                    {currentPage}/{totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-40 flex items-center justify-center transition-colors"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                  <button
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                    className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-40 flex items-center justify-center transition-colors"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                </div>
               </div>
-            )}
+
+              {/* Product grid — 5 columns */}
+              {paginated.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {paginated.map((prod) => (
+                    <ProductCard key={prod.id} prod={prod} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="Produk tidak ditemukan"
+                  description="Coba ubah filter atau kata kunci pencarian"
+                />
+              )}
+
+              {/* Bottom pagination */}
+              {paginated.length > 0 && (
+                <div className="flex justify-center items-center gap-2 mt-6">
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 flex items-center justify-center shadow-sm transition-colors"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (pg) => (
+                      <button
+                        key={pg}
+                        onClick={() => setCurrentPage(pg)}
+                        className={`w-9 h-9 rounded-full text-sm font-bold transition-all ${
+                          pg === currentPage
+                            ? "bg-[#1B4D3E] text-white shadow-md"
+                            : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        {pg}
+                      </button>
+                    ),
+                  )}
+
+                  <button
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                    className="w-9 h-9 rounded-full bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 flex items-center justify-center shadow-sm transition-colors"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* ── Diagnosis AI Floating Button ── */}
+      <AnimatePresence>
+        {!showDiagnosis && (
+          <motion.button
+            key="diagnosis-fab"
+            initial={{ opacity: 0, scale: 0.8, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 16 }}
+            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            onClick={() => setShowDiagnosis(true)}
+            className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-[#1B4D3E] hover:bg-[#163D30] text-white pl-4 pr-5 py-3 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow cursor-pointer"
+            aria-label="Buka Diagnosis AI"
+          >
+            {/* Pulsing indicator */}
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b5f23d] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#b5f23d]"></span>
+            </span>
+            <Bot size={18} className="shrink-0" />
+            <span className="text-sm font-bold tracking-wide">
+              Diagnosis AI
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* ── Diagnosis AI Drawer ── */}
+      <AnimatePresence>
+        {showDiagnosis && (
+          <>
+            {/* Semi-transparent backdrop — click to close */}
+            <motion.div
+              key="diagnosis-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+              onClick={() => setShowDiagnosis(false)}
+              aria-hidden="true"
+            />
+
+            {/* Slide-in panel */}
+            <motion.div
+              key="diagnosis-panel"
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed inset-y-0 right-0 z-50 w-full sm:w-[480px] flex flex-col bg-white shadow-2xl"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Diagnosis AI"
+            >
+              {/* Panel header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1B4D3E] shrink-0">
+                <div className="flex items-center gap-2">
+                  {/* Pulsing dot */}
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b5f23d] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b5f23d]"></span>
+                  </span>
+                  <Bot size={18} className="text-white" />
+                  <span className="text-white font-bold text-sm tracking-wide">
+                    Diagnosis AI
+                  </span>
+                </div>
+                <button
+                  onClick={() => setShowDiagnosis(false)}
+                  className="text-white/70 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10 cursor-pointer"
+                  aria-label="Tutup panel"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Chatbot content — scrollable */}
+              <div className="flex-1 overflow-y-auto">
+                <DiagnosisChatbot
+                  isOpen={showDiagnosis}
+                  onClose={() => setShowDiagnosis(false)}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

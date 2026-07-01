@@ -86,7 +86,7 @@ export default function DashboardKoperasiProfile() {
 
       {/* CONTENT */}
       <div className="flex-1 overflow-y-auto p-4 md:p-8 w-full max-w-[1440px] mx-auto">
-        {isLoading && <TableRowSkeleton rows={6} />}
+        {isLoading && <TableRowSkeleton cols={6} />}
 
         {error && (
           <ErrorState
@@ -100,7 +100,6 @@ export default function DashboardKoperasiProfile() {
             icon={Award}
             title="Koperasi Belum Didaftarkan"
             description="Anda belum memiliki koperasi terdaftar di Agrou."
-            action={{ label: "Daftarkan Koperasi", onClick: () => {} }}
           />
         )}
 
@@ -116,8 +115,8 @@ export default function DashboardKoperasiProfile() {
                 {/* Logo koperasi */}
                 <div className="flex items-center gap-4 mb-6">
                   <AvatarUpload
-                    currentUrl={koperasi.logo_url}
-                    onUpload={(url) =>
+                    value={koperasi.logo_url}
+                    onChange={(url) =>
                       updateKoperasi.mutate(
                         { id: koperasi.id, updates: { logo_url: url } },
                         {

@@ -21,6 +21,8 @@ npm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+nul
+agrou/nul
 
 # Vite
 agrou/.vite/

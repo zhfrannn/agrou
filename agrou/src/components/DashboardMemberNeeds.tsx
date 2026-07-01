@@ -128,7 +128,7 @@ export default function DashboardMemberNeeds() {
           </div>
         )}
 
-        {isLoading && <TableRowSkeleton rows={5} />}
+        {isLoading && <TableRowSkeleton cols={5} />}
 
         {error && (
           <ErrorState

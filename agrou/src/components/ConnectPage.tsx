@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import bgConnect from "../../assets/bg-connect.jpg";
 import { useRealtimePosts } from "../hooks/useRealtimePosts";
+import { useNavigate } from "react-router-dom";
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // BILINGUAL SYSTEM
@@ -1286,10 +1287,12 @@ function PermintaanCard({
   post,
   t,
   onAskGroAI,
+  onViewProfile,
 }: {
   post: PostPermintaan;
   t: (k: string) => string;
   onAskGroAI: (prompt: string) => void;
+  onViewProfile: () => void;
   key?: React.Key;
 }) {
   const [liked, setLiked] = useState(false);
@@ -1429,6 +1432,12 @@ function PermintaanCard({
           <div className="flex items-center gap-2">
             <button className="bg-[var(--color-forest)] text-white font-bold text-xs px-4 py-2 rounded-xl hover:bg-[var(--color-forest-dark)] transition-all cursor-pointer border-none">
               {t("submitOffer")}
+            </button>
+            <button
+              onClick={onViewProfile}
+              className="border border-[var(--color-border)] text-[var(--color-text-secondary)] font-bold text-xs px-4 py-2 rounded-xl hover:border-[var(--color-forest)] hover:text-[var(--color-forest)] transition-all cursor-pointer bg-transparent"
+            >
+              {t("viewProfile")}
             </button>
             <button
               onClick={() =>
@@ -2484,6 +2493,8 @@ function Toast({ message, visible }: { message: string; visible: boolean }) {
 // MAIN PAGE COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function ConnectPage() {
+  const navigate = useNavigate();
+
   // Language
   const [lang, setLang] = useState<Lang>("id");
   const t = useCallback(
@@ -2721,7 +2732,9 @@ export default function ConnectPage() {
                         key={post.id}
                         post={post}
                         t={t}
-                        onViewProfile={() => {}}
+                        onViewProfile={() =>
+                          navigate(`/connect/importir/${post.id}`)
+                        }
                       />
                     );
                   if (post.type === "permintaan")
@@ -2731,6 +2744,9 @@ export default function ConnectPage() {
                         post={post}
                         t={t}
                         onAskGroAI={handleNavigateGroAI}
+                        onViewProfile={() =>
+                          navigate(`/connect/importir/${post.id}`)
+                        }
                       />
                     );
                   if (post.type === "edukasi")

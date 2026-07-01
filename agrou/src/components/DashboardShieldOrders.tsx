@@ -112,7 +112,7 @@ export default function DashboardShieldOrders() {
 
       {/* CONTENT */}
       <div className="flex-1 overflow-y-auto p-4 md:p-8 w-full max-w-[1440px] mx-auto space-y-4">
-        {isLoading && <TableRowSkeleton rows={4} />}
+        {isLoading && <TableRowSkeleton cols={4} />}
 
         {error && (
           <ErrorState

@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   Building2,
   CheckCircle2,
+  ShieldCheck,
   MessageSquare,
   UserPlus,
 } from "lucide-react";
@@ -564,11 +565,19 @@ export default function KoperasiPage() {
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-(--color-forest-dark)/70 to-transparent" />
 
-                    {/* Verified badge */}
+                    {/* Verified Protected Farm badge */}
                     {kop.verified && (
-                      <div className="absolute top-3 right-3 bg-(--color-lime) text-(--color-forest-dark) text-[9px] font-black px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle2 size={10} />
-                        Verified
+                      <div className="absolute top-3 right-3 flex flex-col items-end gap-1">
+                        <div className="flex items-center gap-1.5 bg-(--color-lime) text-(--color-forest-dark) text-[9px] font-black px-2.5 py-1.5 rounded-full shadow-[0_2px_12px_rgba(163,230,53,0.5)] border border-(--color-lime)/80">
+                          <ShieldCheck size={11} strokeWidth={2.5} />
+                          <span className="tracking-wide uppercase">
+                            Verified
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 bg-(--color-forest-dark)/80 backdrop-blur-sm text-(--color-lime) text-[8px] font-bold px-2 py-0.5 rounded-full border border-(--color-lime)/30">
+                          <span>🌿</span>
+                          <span>Protected Farm</span>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -594,11 +603,21 @@ export default function KoperasiPage() {
                       {kop.name}
                     </h3>
 
+                    {kop.verified && (
+                      <div className="flex items-center gap-1 mb-1.5">
+                        <ShieldCheck
+                          size={10}
+                          className="text-emerald-600 shrink-0"
+                          strokeWidth={2.5}
+                        />
+                        <span className="text-[9px] font-black text-emerald-700 tracking-wide uppercase">
+                          Verified Protected Farm
+                        </span>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-1 text-(--color-text-secondary) text-xs mb-2">
-                      <MapPin
-                        size={11}
-                        className="text-(--color-orange)"
-                      />
+                      <MapPin size={11} className="text-(--color-orange)" />
                       <span>{kop.location}</span>
                     </div>
 
@@ -709,28 +728,19 @@ export default function KoperasiPage() {
               </p>
               <div className="space-y-2 mb-5">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2
-                    size={14}
-                    className="text-(--color-lime)"
-                  />
+                  <CheckCircle2 size={14} className="text-(--color-lime)" />
                   <span className="text-white/80 text-xs font-medium">
                     Storefront premium gratis selamanya
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2
-                    size={14}
-                    className="text-(--color-lime)"
-                  />
+                  <CheckCircle2 size={14} className="text-(--color-lime)" />
                   <span className="text-white/80 text-xs font-medium">
                     Akses pembeli premium nasional
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2
-                    size={14}
-                    className="text-(--color-lime)"
-                  />
+                  <CheckCircle2 size={14} className="text-(--color-lime)" />
                   <span className="text-white/80 text-xs font-medium">
                     Revenue split otomatis transparan
                   </span>

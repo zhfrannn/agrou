@@ -164,7 +164,7 @@ export default function DashboardBrandStock() {
 
       {/* CONTENT */}
       <div className="flex-1 overflow-y-auto p-4 md:p-8 w-full max-w-[1440px] mx-auto space-y-6">
-        {isLoading && <TableRowSkeleton rows={5} />}
+        {isLoading && <TableRowSkeleton cols={5} />}
 
         {error && (
           <ErrorState
@@ -178,7 +178,6 @@ export default function DashboardBrandStock() {
             icon={Box}
             title="Belum Ada Produk"
             description="Mulai tambahkan produk yang ingin Anda jual."
-            action={{ label: "Tambah Produk Pertama", onClick: openModal }}
           />
         )}
 
@@ -350,11 +349,7 @@ export default function DashboardBrandStock() {
                   className="flex-1 overflow-y-auto px-6 py-5 space-y-4"
                 >
                   {/* Foto produk */}
-                  <ProductImageUpload
-                    productId={tempProductId}
-                    existingImages={form.images}
-                    onChange={(urls) => handleField("images", urls)}
-                  />
+                  <ProductImageUpload value={form.images[0] ?? null} onChange={(url) => handleField("images", url ? [url] : [])} />
 
                   {/* Nama */}
                   <div>
