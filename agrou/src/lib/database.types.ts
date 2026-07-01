@@ -8,11 +8,7 @@ export type OrderStatus =
   | "delivered"
   | "cancelled";
 export type ShieldStatus =
-  | "draft"
-  | "active"
-  | "claimed"
-  | "expired"
-  | "rejected";
+  "draft" | "active" | "claimed" | "expired" | "rejected";
 export type ProductCategoryEnum =
   | "padi"
   | "jagung"
@@ -108,6 +104,8 @@ export interface ShieldProduct {
   coverage: number;
   duration_days: number;
   crop_type: string | null;
+  commodity: string | null;
+  premium: number | null;
   image_url: string | null;
   is_active: boolean;
   created_at: string;
@@ -124,6 +122,8 @@ export interface ShieldOrder {
   start_date: string | null;
   end_date: string | null;
   claim_reason: string | null;
+  total_premium: number | null;
+  product?: ShieldProduct | null;
   created_at: string;
   updated_at: string;
   shield_products?: ShieldProduct;
@@ -140,6 +140,7 @@ export interface MemberNeed {
   target_price: number | null;
   deadline: string | null;
   is_fulfilled: boolean;
+  status: string;
   created_at: string;
   updated_at: string;
 }

@@ -1,4 +1,4 @@
-import { useRef, useEffect, type KeyboardEvent } from "react";
+import React, { useRef, useEffect, type KeyboardEvent } from "react";
 import { Send, Camera, Upload, X, Loader2 } from "lucide-react";
 
 interface ChatInputProps {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import supabase from "../supabase";
-import type { ShieldStatus } from "../database.types";
+import type { ShieldStatus, ShieldProduct, ShieldOrder } from "../database.types";
 
 export type { ShieldStatus };
 
@@ -30,7 +30,7 @@ export function useShieldProducts() {
         .eq("is_active", true)
         .order("created_at", { ascending: false });
       if (error) throw error;
-      return data;
+      return (data ?? []) as ShieldProduct[];
     },
   });
 }
@@ -45,7 +45,7 @@ export function useMyShieldOrders(userId: string) {
         .eq("user_id", userId)
         .order("created_at", { ascending: false });
       if (error) throw error;
-      return data;
+      return (data ?? []) as (ShieldOrder & { shield_products: ShieldProduct | null })[];
     },
     enabled: !!userId,
   });

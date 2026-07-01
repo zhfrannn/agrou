@@ -8,39 +8,41 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorBoundary } from "./components/layout/ErrorBoundary";
 
 // Static imports — needed on the initial / render
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import MarqueeStrip from "./components/MarqueeStrip";
-import ValuePropStrip from "./components/ValuePropStrip";
-import ModuleIntro from "./components/ModuleIntro";
-import PromoBanner from "./components/PromoBanner";
-import BestSellers from "./components/BestSellers";
-import EkosistemBridge from "./components/EkosistemBridge";
-import KoperasiTerpercaya from "./components/KoperasiTerpercaya";
-import HomeBottom from "./components/HomeBottom";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Hero from "./components/home/Hero";
+import MarqueeStrip from "./components/home/MarqueeStrip";
+import ValuePropStrip from "./components/home/ValuePropStrip";
+import ModuleIntro from "./components/home/ModuleIntro";
+import PromoBanner from "./components/home/PromoBanner";
+import BestSellers from "./components/home/BestSellers";
+import EkosistemBridge from "./components/home/EkosistemBridge";
+import KoperasiTerpercaya from "./components/home/KoperasiTerpercaya";
+import HomeBottom from "./components/home/HomeBottom";
 import heroBg from "../assets/backgorund-hero.jpg";
 
 // Lazy-loaded page routes — split into separate chunks
-const TaniPage = lazy(() => import("./components/TaniPage"));
-const BrandPage = lazy(() => import("./components/BrandPage"));
-const DashboardPage = lazy(() => import("./components/DashboardPage"));
-const KoperasiPage = lazy(() => import("./components/KoperasiPage"));
+const TaniPage = lazy(() => import("./components/pages/TaniPage"));
+const BrandPage = lazy(() => import("./components/pages/BrandPage"));
+const DashboardPage = lazy(
+  () => import("./components/dashboard/DashboardPage"),
+);
+const KoperasiPage = lazy(() => import("./components/pages/KoperasiPage"));
 const KoperasiProfilePage = lazy(
-  () => import("./components/KoperasiProfilePage"),
+  () => import("./components/pages/KoperasiProfilePage"),
 );
-const AboutPage = lazy(() => import("./components/AboutPage"));
-const KatalogPage = lazy(() => import("./components/KatalogPage"));
-const GroAIPage = lazy(() => import("./components/GroAIPage"));
-const ConnectPage = lazy(() => import("./components/ConnectPage"));
+const AboutPage = lazy(() => import("./components/pages/AboutPage"));
+const KatalogPage = lazy(() => import("./components/pages/KatalogPage"));
+const GroAIPage = lazy(() => import("./components/gro-ai/GroAIPage"));
+const ConnectPage = lazy(() => import("./components/pages/ConnectPage"));
 const ImportirProfilePage = lazy(
-  () => import("./components/ImportirProfilePage"),
+  () => import("./components/pages/ImportirProfilePage"),
 );
-const LoginPage = lazy(() => import("./components/LoginPage"));
-const RegisterPage = lazy(() => import("./components/RegisterPage"));
+const LoginPage = lazy(() => import("./components/pages/LoginPage"));
+const RegisterPage = lazy(() => import("./components/pages/RegisterPage"));
 
 function PageLoader() {
   return (
@@ -127,7 +129,9 @@ export default function App() {
     location.pathname === "/gro-ai" || location.pathname === "/connect";
 
   return (
-    <div className={`min-h-screen text-(--color-text-primary) font-sans overflow-x-hidden selection:bg-(--color-orange) selection:text-white ${location.pathname === "/gro-ai" ? "bg-white" : ""}`}>
+    <div
+      className={`min-h-screen text-(--color-text-primary) font-sans overflow-x-hidden selection:bg-(--color-orange) selection:text-white ${location.pathname === "/gro-ai" ? "bg-white" : ""}`}
+    >
       <Header />
       <main
         className={
@@ -141,7 +145,14 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/katalog" element={<KatalogPage />} />
             <Route path="/pasar" element={<BrandPage />} />
-            <Route path="/tani" element={<ErrorBoundary><TaniPage /></ErrorBoundary>} />
+            <Route
+              path="/tani"
+              element={
+                <ErrorBoundary>
+                  <TaniPage />
+                </ErrorBoundary>
+              }
+            />
             <Route path="/koperasi" element={<KoperasiPage />} />
             <Route path="/koperasi/:slug" element={<KoperasiProfilePage />} />
             <Route
