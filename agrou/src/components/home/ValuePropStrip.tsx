@@ -6,25 +6,22 @@ const PROPS = [
     icon: ScanLine,
     title: "Diagnosis Masalah Lahan",
     desc: "Chatbot AI rekomendasikan produk tepat sesuai gejala lahanmu",
-    colorVar: "white",
-    bgVar: "var(--color-forest)",
-    bgAlpha: "0.08",
+    iconColor: "var(--color-forest)",
+    iconBg: "rgba(26, 61, 46, 0.10)",
   },
   {
     icon: Store,
     title: "Koperasi Desa Jadi Brand",
     desc: "Produk desa tampil premium dengan storefront dan branding kolektif",
-    colorVar: "white",
-    bgVar: "var(--color-orange)",
-    bgAlpha: "0.08",
+    iconColor: "var(--color-orange)",
+    iconBg: "rgba(247, 127, 0, 0.10)",
   },
   {
     icon: ShieldCheck,
     title: "Verified Protected Farm",
     desc: "Rekam jejak proteksi lahan jadi bukti kualitas yang tidak bisa dipalsukan",
-    colorVar: "white",
-    bgVar: "var(--color-forest)",
-    bgAlpha: "0.08",
+    iconColor: "var(--color-forest)",
+    iconBg: "rgba(26, 61, 46, 0.10)",
   },
 ];
 
@@ -51,9 +48,13 @@ export default function ValuePropStrip() {
                 {/* Icon */}
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `color-mix(in srgb, ${prop.bgVar} ${parseInt(prop.bgAlpha.replace("0.", "")) * 10}%, transparent)` }}
+                  style={{ backgroundColor: prop.iconBg }}
                 >
-                  <Icon size={20} strokeWidth={2.2} style={{ color: prop.colorVar }} />
+                  <Icon
+                    size={20}
+                    strokeWidth={2.2}
+                    style={{ color: prop.iconColor }}
+                  />
                 </div>
 
                 {/* Text */}

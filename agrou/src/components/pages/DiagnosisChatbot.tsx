@@ -15,9 +15,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 // DIAGNOSIS DATA TYPES
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 
 interface DiagnosisResult {
   emoji: string;
@@ -34,16 +34,16 @@ interface DiagnosisResult {
   satuan: { name: string; price: string }[];
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 // DIAGNOSIS MAP
 // Key format: "<komoditas>__<primary-gejala-signal>"
 // We match by finding which key's signal words appear most in selectedGejala.
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 
 const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
-  // â”€â”€ PADI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� PADI ������������������������������������������������������������������������������������������������������������������������������������
   Padi__bercak: {
-    emoji: "ðŸ¦ ",
+    emoji: "🦠",
     disease: "Blast Fungal (Pyricularia oryzae)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -67,7 +67,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Padi__wereng: {
-    emoji: "ðŸ›",
+    emoji: "🐛",
     disease: "Wereng Batang Coklat (Nilaparvata lugens)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -91,7 +91,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Padi__rebah: {
-    emoji: "ðŸŒ§ï¸",
+    emoji: "🌧️",
     disease: "Rebah Kecambah / Lodging (Helminthosporium)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -114,9 +114,9 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
     ],
   },
 
-  // â”€â”€ JAGUNG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� JAGUNG ��������������������������������������������������������������������������������������������������������������������������������
   Jagung__kuning: {
-    emoji: "ðŸ‚",
+    emoji: "🍂",
     disease: "Klorosis Nitrogen (Defisiensi N)",
     severity: "Ringan",
     severityColor: "bg-green-100 text-green-700 border-green-200",
@@ -140,7 +140,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Jagung__bercak: {
-    emoji: "ðŸ”´",
+    emoji: "🔴",
     disease: "Bercak Daun Jagung (Turcicum Leaf Blight)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -164,7 +164,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Jagung__busuk: {
-    emoji: "ðŸ«",
+    emoji: "🫘",
     disease: "Busuk Tongkol Jagung (Fusarium ear rot)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -187,9 +187,9 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
     ],
   },
 
-  // â”€â”€ CABAI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� CABAI ����������������������������������������������������������������������������������������������������������������������������������
   Cabai__bercak: {
-    emoji: "ðŸ„",
+    emoji: "🍄",
     disease: "Antraknosa Cabai / Patek (Colletotrichum gloeosporioides)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -213,7 +213,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Cabai__kuning: {
-    emoji: "ðŸŸ¡",
+    emoji: "🟡",
     disease: "Virus Kuning Cabai (Begomovirus / Geminiviridae)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -237,7 +237,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Cabai__busuk: {
-    emoji: "ðŸ’§",
+    emoji: "💧",
     disease: "Busuk Phytophthora (Phytophthora capsici)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -260,9 +260,9 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
     ],
   },
 
-  // â”€â”€ UDANG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� UDANG ����������������������������������������������������������������������������������������������������������������������������������
   Udang__busuk: {
-    emoji: "ðŸ¦ ",
+    emoji: "🦠",
     disease: "White Spot Syndrome Virus (WSSV)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -286,7 +286,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Udang__kuning: {
-    emoji: "ðŸŒŠ",
+    emoji: "🌊",
     disease: "Kualitas Air Buruk (Amonia & Nitrit Tinggi)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -310,7 +310,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   Udang__rebah: {
-    emoji: "ðŸ©º",
+    emoji: "🩺",
     disease: "Vibriosis (Vibrio harveyi / parahaemolyticus)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -333,9 +333,9 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
     ],
   },
 
-  // â”€â”€ RUMPUT LAUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� RUMPUT LAUT ����������������������������������������������������������������������������������������������������������������������
   "Rumput Laut__bercak": {
-    emoji: "ðŸ§«",
+    emoji: "🧫",
     disease: "Ice-Ice Disease (Bacterial & Stress-Induced)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -359,7 +359,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   "Rumput Laut__kuning": {
-    emoji: "ðŸŒ¿",
+    emoji: "🌿",
     disease: "Defisiensi Nutrien (N-P-K Laut Rendah)",
     severity: "Ringan",
     severityColor: "bg-green-100 text-green-700 border-green-200",
@@ -383,7 +383,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   "Rumput Laut__busuk": {
-    emoji: "âš—ï¸",
+    emoji: "🌊",
     disease: "Epiphyte & Fouling Organisme",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -406,9 +406,9 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
     ],
   },
 
-  // â”€â”€ IKAN LELE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ���� IKAN LELE ��������������������������������������������������������������������������������������������������������������������������
   "Ikan Lele__busuk": {
-    emoji: "ðŸ ",
+    emoji: "🐠",
     disease: "Aeromonasis / Bercak Merah (Aeromonas hydrophila)",
     severity: "Berat",
     severityColor: "bg-red-100 text-red-700 border-red-200",
@@ -432,7 +432,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   "Ikan Lele__kuning": {
-    emoji: "âš ï¸",
+    emoji: "🔵",
     disease: "Kualitas Air Buruk (Amonia Tinggi / Oksigen Rendah)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -456,7 +456,7 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 
   "Ikan Lele__bercak": {
-    emoji: "ðŸ”µ",
+    emoji: "🔬",
     disease: "Saprolegniasis (Jamur Air / Saprolegnia sp.)",
     severity: "Sedang",
     severityColor: "bg-orange-100 text-[#B8860B] border-orange-200",
@@ -480,12 +480,12 @@ const DIAGNOSIS_MAP: Record<string, DiagnosisResult> = {
   },
 };
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 // FALLBACK RESULT (when no match found)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 
 const FALLBACK_RESULT: DiagnosisResult = {
-  emoji: "ðŸ”¬",
+  emoji: "🔬",
   disease: "Perlu Analisis Lebih Lanjut",
   severity: "Belum Diketahui",
   severityColor: "bg-gray-100 text-gray-600 border-gray-200",
@@ -508,11 +508,11 @@ const FALLBACK_RESULT: DiagnosisResult = {
   ],
 };
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 // LOOKUP FUNCTION
 // Finds the best-matching key by counting how many gejala signals appear
 // in the selected gejala list, then falls back to generic if no match.
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 
 // Mapping of gejala IDs to signal keywords used in DIAGNOSIS_MAP keys
 const GEJALA_SIGNAL: Record<string, string> = {
@@ -520,7 +520,7 @@ const GEJALA_SIGNAL: Record<string, string> = {
   bercak: "bercak",
   rebah: "rebah",
   wereng: "wereng",
-  kosong: "busuk", // bulir kosong â†’ nearest pattern is busuk/rot
+  kosong: "busuk", // bulir kosong 🌾  nearest pattern is busuk/rot
   busuk: "busuk",
 };
 
@@ -546,9 +546,9 @@ function getDiagnosis(komoditas: string, gejalaIds: string[]): DiagnosisResult {
   return DIAGNOSIS_MAP[key] ?? FALLBACK_RESULT;
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 // COMPONENT
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ����������������������������������������������������������������������������������������������������������������������������������������������������������
 
 export default function DiagnosisChatbot({
   isOpen,
@@ -576,7 +576,7 @@ export default function DiagnosisChatbot({
     }
   }, [isOpen]);
 
-  // Do NOT early-return before hooks â€” render null via JSX instead
+  // Do NOT early-return before hooks � render null via JSX instead
   if (!isOpen) return null;
 
   const handleSelectKomoditas = (komoditas: string) => {
@@ -611,7 +611,7 @@ export default function DiagnosisChatbot({
         transition={{ duration: 0.25, ease: "easeOut" }}
         className="bg-white w-full max-w-275 rounded-3xl shadow-2xl overflow-hidden flex h-[85vh] max-h-170"
       >
-        {/* â•â•â• LEFT SIDEBAR - CHAT CONTEXT â•â•â• */}
+        {/* = LEFT SIDEBAR - CHAT CONTEXT = */}
         <div className="w-60 bg-linear-to-b from-[#2D6A4F] to-[#1B4332] text-white p-5 flex-col hidden lg:flex">
           <div className="mb-5">
             <div className="bg-white/20 backdrop-blur-sm p-2.5 rounded-xl mb-2.5 flex items-center gap-2.5">
@@ -668,7 +668,7 @@ export default function DiagnosisChatbot({
           </div>
         </div>
 
-        {/* â•â•â• MAIN CHAT AREA â•â•â• */}
+        {/* = MAIN CHAT AREA = */}
         <div className="flex-1 flex flex-col bg-white">
           {/* HEADER */}
           <div className="bg-white border-b border-gray-100 px-5 py-3 shrink-0">
@@ -731,7 +731,7 @@ export default function DiagnosisChatbot({
                     <div>
                       <div className="bg-white border border-gray-100 p-3 rounded-xl rounded-tl-sm shadow-sm max-w-md">
                         <p className="text-gray-800 text-sm leading-relaxed">
-                          Halo! ðŸ‘‹ Saya asisten Agrou. Anda bisa chat dengan
+                          Halo! 👋 Saya asisten Agrou. Anda bisa chat dengan
                           saya atau pilih komoditas di bawah untuk diagnosis
                           cepat.
                         </p>
@@ -757,16 +757,16 @@ export default function DiagnosisChatbot({
                       {/* Options Grid - SMALLER SIZE */}
                       <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
                         {[
-                          { id: "padi", name: "Padi", emoji: "ðŸŒ¾" },
-                          { id: "jagung", name: "Jagung", emoji: "ðŸŒ½" },
-                          { id: "cabai", name: "Cabai", emoji: "ðŸŒ¶ï¸" },
-                          { id: "udang", name: "Udang", emoji: "ðŸ¦" },
+                          { id: "padi", name: "Padi", emoji: "🌾" },
+                          { id: "jagung", name: "Jagung", emoji: "🌽" },
+                          { id: "cabai", name: "Cabai", emoji: "🌶️" },
+                          { id: "udang", name: "Udang", emoji: "🦐" },
                           {
                             id: "rumputlaut",
                             name: "Rumput Laut",
-                            emoji: "ðŸŒ¿",
+                            emoji: "🌿",
                           },
-                          { id: "lele", name: "Ikan Lele", emoji: "ðŸŸ" },
+                          { id: "lele", name: "Ikan Lele", emoji: "🐟" },
                         ].map((item) => (
                           <button
                             key={item.id}
@@ -1093,7 +1093,7 @@ export default function DiagnosisChatbot({
         </div>
         {/* Close main chat area */}
 
-        {/* â•â•â• RIGHT PANEL - PRODUCT RECOMMENDATIONS â•â•â• */}
+        {/* = RIGHT PANEL - PRODUCT RECOMMENDATIONS = */}
         {step === 3 && (
           <motion.div
             initial={{ opacity: 0, x: 20 }}

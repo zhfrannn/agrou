@@ -72,7 +72,7 @@ const STEPS_DATA: Record<
     {
       icon: Handshake,
       title: "Datang ke Koperasi",
-      desc: "Tidak perlu smartphone â€” cukup datang ke kantor koperasi terdekat.",
+      desc: "Tidak perlu smartphone — cukup datang ke kantor koperasi terdekat.",
       color: "bg-(--color-forest)/10",
       textColor: "text-(--color-forest)",
     },
@@ -137,7 +137,7 @@ const TESTIMONIALS = [
     role: "Ketua Koperasi Gayo Mandiri",
     location: "Bener Meriah, Aceh",
     quote:
-      "Dulu anggota jalan sendiri-sendiri. Setelah pakai Agrou, kami bisa beli obat bareng (Tani) plus jual kopi (Pasar) ke luar pulau. Omzet desa naik 40%!",
+      "Sebelum Agrou, setiap anggota bergerak sendiri. Kini kami membeli produk proteksi bersama dan memasarkan kopi ke luar pulau. Omzet koperasi naik 40% dalam setahun.",
     avatar:
       "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&q=80&w=200",
     rating: 5,
@@ -148,7 +148,7 @@ const TESTIMONIALS = [
     role: "Pengurus KUD Sari Laut",
     location: "Demak, Jawa Tengah",
     quote:
-      "Sistem pembagian hasilnya luar biasa. Tidak ada lagi cekcok antar nelayan, karena semua terekap otomatis saat ikan asin kami laku di Pasar.",
+      "Sistem bagi hasil otomatis Agrou menyelesaikan masalah transparansi yang selama ini menjadi sumber konflik. Semua transaksi tercatat dan terdistribusi secara proporsional.",
     avatar:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
     rating: 5,
@@ -159,7 +159,7 @@ const TESTIMONIALS = [
     role: "Ketua Kelompok Tani Subur",
     location: "Cianjur, Jawa Barat",
     quote:
-      "Berkat riwayat belanja proteksi di Tani, produk padi kami langsung dapat lencana Verified. Pembeli dari kota lebih percaya.",
+      "Rekam jejak proteksi lahan dari Agrou Tani menjadi modal kepercayaan. Produk kami mendapat badge Verified dan pembeli dari kota pun berani membeli dengan harga premium.",
     avatar:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
     rating: 5,
@@ -178,7 +178,8 @@ export default function HomeBottom() {
             Cara Kerja Agrou
           </h2>
           <p className="text-xl text-gray-600 font-medium max-w-2xl mx-auto">
-            Sederhana untuk semua â€” petani, koperasi, dan pembeli
+            Dirancang untuk petani, koperasi, dan pembeli dalam satu alur yang
+            terintegrasi.
           </p>
         </div>
 
@@ -260,7 +261,7 @@ export default function HomeBottom() {
         <div className="max-w-360 mx-auto px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="font-display font-black text-4xl text-gray-900">
-              Koperasi yang Sudah Merasakan Manfaatnya
+              Dipercaya oleh Ribuan Koperasi di Seluruh Indonesia
             </h2>
           </div>
 
@@ -341,22 +342,16 @@ export default function HomeBottom() {
             {/* Decorative Pattern */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
 
-            <div className="absolute -bottom-8 right-[20%] w-64 opacity-20 pointer-events-none">
-              <div className="text-[140px]">ðŸ§‘â€ðŸŒ¾</div>
-            </div>
-            <div className="absolute top-10 right-10 w-32 opacity-20 pointer-events-none">
-              <div className="text-[100px]">ðŸ‘¨â€ðŸŽ£</div>
-            </div>
-
             <div className="max-w-xl relative z-10 text-center md:text-left">
               <h2 className="font-display font-black text-4xl lg:text-5xl text-white mb-6 leading-tight">
-                Siap bergabung dengan{" "}
-                <span className="text-(--color-lime)">2.400+</span> koperasi
-                aktif?
+                Bergabung dengan{" "}
+                <span className="text-(--color-lime)">2.400+</span> Koperasi
+                Aktif
               </h2>
               <p className="text-white/90 text-lg font-medium mb-0">
-                Modernisasi desa Anda hari ini. Lindungi lahannya, jual
-                produknya, dan kelola anggotanya dengan mudah.
+                Daftarkan koperasi Anda dan mulai manfaatkan ekosistem Agrou.
+                Lindungi lahan, pasarkan hasil panen, dan kelola anggota dalam
+                satu platform terintegrasi.
               </p>
             </div>
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   Home,
   Shield,
@@ -26,7 +27,16 @@ import {
 import { motion } from "motion/react";
 import { useAuth } from "../../hooks/useAuth";
 import { useRealtimeOrders } from "../../hooks/useRealtimeOrders";
-import { useDashboardStats, formatCurrency } from "../../lib/queries/orders";
+import {
+  useDashboardStats,
+  useBuyerStats,
+  formatCurrency,
+} from "../../lib/queries/orders";
+import {
+  useMyKoperasi,
+  useKoperasiStats,
+  useCreateKoperasi,
+} from "../../lib/queries/koperasi";
 import DashboardShieldStore from "./DashboardShieldStore";
 import DashboardShieldOrders from "./DashboardShieldOrders";
 import DashboardMemberNeeds from "./DashboardMemberNeeds";
@@ -34,12 +44,69 @@ import DashboardBrandStock from "./DashboardBrandStock";
 import DashboardBrandOrders from "./DashboardBrandOrders";
 import DashboardBrandRevenue from "./DashboardBrandRevenue";
 import DashboardKoperasiProfile from "./DashboardKoperasiProfile";
+import DashboardBerandaPetani from "./DashboardBerandaPetani";
+import DashboardBerandaPembeli from "./DashboardBerandaPembeli";
+import DashboardBerandaAdmin from "./DashboardBerandaAdmin";
+import DashboardPesananPembeli from "./DashboardPesananPembeli";
+
+const NAV_KOPERASI = [
+  { view: "beranda", icon: Home, label: "Beranda" },
+  { view: "brand_stock", icon: Package, label: "Produk" },
+  { view: "brand_orders", icon: ShoppingBag, label: "Pesanan" },
+  { view: "brand_revenue", icon: BarChart2, label: "Pendapatan" },
+  { view: "member_needs", icon: Users, label: "Kebutuhan Anggota" },
+  { view: "shield_store", icon: Shield, label: "Toko Shield" },
+  { view: "shield_orders", icon: ShoppingCart, label: "Pesanan Shield" },
+  { view: "profile", icon: User, label: "Profil Koperasi" },
+];
+const NAV_PETANI = [
+  { view: "beranda", icon: Home, label: "Beranda" },
+  { view: "brand_stock", icon: Package, label: "Produk Saya" },
+  { view: "brand_orders", icon: ShoppingBag, label: "Pesanan Masuk" },
+  { view: "brand_revenue", icon: BarChart2, label: "Pendapatan" },
+  { view: "shield_orders", icon: Shield, label: "Asuransi Saya" },
+];
+const NAV_PEMBELI = [
+  { view: "beranda", icon: Home, label: "Beranda" },
+  { view: "pesanan", icon: ShoppingBag, label: "Pesanan Saya" },
+  { view: "shield_orders", icon: Shield, label: "Asuransi Saya" },
+];
+const NAV_ADMIN = [
+  { view: "beranda", icon: Home, label: "Dashboard" },
+  { view: "brand_stock", icon: Package, label: "Produk" },
+  { view: "brand_orders", icon: ShoppingBag, label: "Semua Pesanan" },
+  { view: "shield_store", icon: Shield, label: "Shield Products" },
+];
 
 export default function DashboardPage() {
   const [activeView, setActiveView] = useState("beranda");
+  const [setupForm, setSetupForm] = useState({
+    name: "",
+    slug: "",
+    location: "",
+    province: "",
+  });
   const { profile } = useAuth();
   useRealtimeOrders();
-  const { data: stats } = useDashboardStats(profile?.id ?? "");
+  const role = profile?.role ?? "pembeli";
+  const { data: stats, isLoading: isLoadingStats } = useDashboardStats(
+    profile?.id ?? "",
+  );
+  const { data: koperasi, isLoading: isLoadingKoperasi } = useMyKoperasi(
+    role === "koperasi" ? (profile?.id ?? "") : "",
+  );
+  const { data: koperasiStats } = useKoperasiStats(koperasi?.id ?? "");
+  const { data: buyerStats } = useBuyerStats(
+    role === "pembeli" ? (profile?.id ?? "") : "",
+  );
+  const createKoperasi = useCreateKoperasi();
+  const navMap = {
+    koperasi: NAV_KOPERASI,
+    petani: NAV_PETANI,
+    pembeli: NAV_PEMBELI,
+    admin: NAV_ADMIN,
+  };
+  const navItems = navMap[role as keyof typeof navMap] ?? NAV_PEMBELI;
 
   const displayName = profile?.full_name ?? "Pengguna";
   const avatarUrl =
@@ -51,6 +118,106 @@ export default function DashboardPage() {
     month: "long",
     year: "numeric",
   });
+
+  // Koperasi onboarding: role koperasi tapi belum punya data koperasi
+  if (role === "koperasi" && !koperasi && !isLoadingKoperasi && profile) {
+    return (
+      <div className="flex h-screen bg-slate-50 items-center justify-center">
+        <div className="bg-white rounded-3xl p-8 shadow-lg max-w-md w-full mx-4">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="relative flex items-center justify-center">
+              <Shield size={24} className="fill-[#1B4332] text-[#1B4332]" />
+              <Leaf
+                size={12}
+                className="absolute text-white fill-white top-1.5"
+              />
+            </div>
+            <span className="font-display font-black text-xl text-[#1B4332]">
+              Agrou
+            </span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Setup Koperasi
+          </h2>
+          <p className="text-gray-500 text-sm mb-6">
+            Lengkapi data koperasi Anda untuk mulai berjualan
+          </p>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Nama Koperasi
+              </label>
+              <input
+                className="mt-1 w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20"
+                value={setupForm.name}
+                onChange={(e) => {
+                  const name = e.target.value;
+                  const slug = name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")
+                    .replace(/[^a-z0-9-]/g, "");
+                  setSetupForm((f) => ({ ...f, name, slug }));
+                }}
+                placeholder="Koperasi Tani Makmur"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Slug URL
+              </label>
+              <input
+                className="mt-1 w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20"
+                value={setupForm.slug}
+                onChange={(e) =>
+                  setSetupForm((f) => ({ ...f, slug: e.target.value }))
+                }
+                placeholder="koperasi-tani-makmur"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Lokasi
+              </label>
+              <input
+                className="mt-1 w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20"
+                value={setupForm.location}
+                onChange={(e) =>
+                  setSetupForm((f) => ({ ...f, location: e.target.value }))
+                }
+                placeholder="Surabaya, Jawa Timur"
+              />
+            </div>
+            <button
+              onClick={async () => {
+                if (!setupForm.name || !setupForm.slug) {
+                  toast.error("Nama dan slug wajib diisi");
+                  return;
+                }
+                try {
+                  await createKoperasi.mutateAsync({
+                    owner_id: profile.id,
+                    name: setupForm.name,
+                    slug: setupForm.slug,
+                    location: setupForm.location,
+                    province: setupForm.province,
+                  });
+                  toast.success("Koperasi berhasil dibuat!");
+                } catch (e: unknown) {
+                  const msg =
+                    e instanceof Error ? e.message : "Gagal membuat koperasi";
+                  toast.error(msg);
+                }
+              }}
+              disabled={createKoperasi.isPending}
+              className="w-full bg-[#1B4332] text-white rounded-xl py-3 font-semibold hover:bg-[#1B4332]/90 transition-colors disabled:opacity-50"
+            >
+              {createKoperasi.isPending ? "Membuat..." : "Buat Koperasi"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-slate-50 font-sans overflow-hidden">
@@ -92,100 +259,23 @@ export default function DashboardPage() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 py-6 px-4 space-y-6">
-          <div>
-            <button
-              onClick={() => setActiveView("beranda")}
-              className={`flex items-center gap-3 w-full text-left px-4 py-2.5 rounded-xl font-bold transition-colors ${activeView === "beranda" ? "bg-white/10 text-white" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-            >
-              <Home size={18} />
-              Beranda Dashboard
-            </button>
-          </div>
-
-          <div>
-            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest px-4 mb-3">
-              ── TANI ──
-            </div>
-            <div className="space-y-1">
+        <nav className="flex-1 py-6 px-4">
+          <div className="space-y-1">
+            {navItems.map((item) => (
               <button
-                onClick={() => setActiveView("shield_store")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "shield_store" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
+                key={item.view}
+                onClick={() => setActiveView(item.view)}
+                className={[
+                  "flex items-center gap-3 px-4 py-2 rounded-xl transition-colors text-sm font-medium w-full text-left",
+                  activeView === item.view
+                    ? "bg-white/15 text-white font-bold"
+                    : "hover:bg-white/5 text-white/80 hover:text-white",
+                ].join(" ")}
               >
-                <Shield size={18} className="text-[#74C69D]" />
-                Toko Tani
+                <item.icon size={18} className="shrink-0" />
+                {item.label}
               </button>
-              <button
-                onClick={() => setActiveView("shield_orders")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "shield_orders" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <ShoppingBag size={18} className="text-[#74C69D]" />
-                Pesanan Tani
-              </button>
-              <button
-                onClick={() => setActiveView("member_needs")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "member_needs" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <Users size={18} className="text-[#74C69D]" />
-                Kebutuhan Anggota
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest px-4 mb-3">
-              ── PASAR ──
-            </div>
-            <div className="space-y-1">
-              <button
-                onClick={() => setActiveView("brand_stock")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "brand_stock" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <Package size={18} className="text-[#FFD166]" />
-                Stok & Produk
-              </button>
-              <button
-                onClick={() => setActiveView("brand_orders")}
-                className={`flex items-center justify-between w-full px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "brand_orders" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <div className="flex items-center gap-3">
-                  <ShoppingCart size={18} className="text-[#FFD166]" />
-                  Pesanan Pasar
-                </div>
-                <span className="bg-[#E76F51] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  3
-                </span>
-              </button>
-              <button
-                onClick={() => setActiveView("brand_revenue")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "brand_revenue" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <Wallet size={18} className="text-[#FFD166]" />
-                Revenue & Pembagian
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest px-4 mb-3">
-              ── UMUM ──
-            </div>
-            <div className="space-y-1">
-              <button
-                onClick={() => setActiveView("profile")}
-                className={`flex items-center gap-3 w-full text-left px-4 py-2 rounded-xl transition-colors text-sm font-medium ${activeView === "profile" ? "bg-white/10 text-white font-bold" : "hover:bg-white/5 text-white/80 hover:text-white"}`}
-              >
-                <User size={18} className="text-white/60" />
-                Profil Koperasi
-              </button>
-              <a
-                href="#"
-                className="flex items-center gap-3 hover:bg-white/5 text-white/80 hover:text-white px-4 py-2 rounded-xl transition-colors text-sm font-medium"
-              >
-                <Settings size={18} className="text-white/60" />
-                Pengaturan
-              </a>
-            </div>
+            ))}
           </div>
         </nav>
 
@@ -648,6 +738,14 @@ export default function DashboardPage() {
             </div>
           </div>
         </main>
+      ) : activeView === "beranda" && role === "petani" ? (
+        <DashboardBerandaPetani />
+      ) : activeView === "beranda" && role === "pembeli" ? (
+        <DashboardBerandaPembeli />
+      ) : activeView === "beranda" && role === "admin" ? (
+        <DashboardBerandaAdmin />
+      ) : activeView === "pesanan" && role === "pembeli" ? (
+        <DashboardPesananPembeli />
       ) : activeView === "shield_store" ? (
         <DashboardShieldStore />
       ) : activeView === "shield_orders" ? (

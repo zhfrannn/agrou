@@ -4,7 +4,7 @@ import type { GroAIModule } from "../types/gro-ai";
 export const MODULES: GroAIModule[] = [
   {
     id: "foto",
-    icon: "📸",
+    icon: "",
     label: "Foto Tanamanmu",
     desc: "Diagnosis AI lewat foto langsung",
     prompts: [
@@ -15,7 +15,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "tanaman",
-    icon: "🌱",
+    icon: "",
     label: "Masalah Tanaman",
     desc: "Gejala daun, batang, buah",
     prompts: [
@@ -27,7 +27,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "lahan",
-    icon: "🌍",
+    icon: "",
     label: "Masalah Lahan",
     desc: "pH, drainase, kesuburan",
     prompts: [
@@ -39,7 +39,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "hama",
-    icon: "🐛",
+    icon: "",
     label: "Hama & Penyakit",
     desc: "Identifikasi & penanganan",
     prompts: [
@@ -51,7 +51,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "air",
-    icon: "💧",
+    icon: "",
     label: "Kebutuhan Air",
     desc: "Irigasi, kekeringan, banjir",
     prompts: [
@@ -63,7 +63,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "pupuk",
-    icon: "🧪",
+    icon: "",
     label: "Pemupukan",
     desc: "Dosis, jenis, jadwal pupuk",
     prompts: [
@@ -75,7 +75,7 @@ export const MODULES: GroAIModule[] = [
   },
   {
     id: "perikanan",
-    icon: "🐟",
+    icon: "",
     label: "Budidaya Perikanan",
     desc: "Tambak, kolam, laut",
     prompts: [

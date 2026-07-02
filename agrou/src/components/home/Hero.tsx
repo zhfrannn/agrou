@@ -5,34 +5,34 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const SLIDES = [
   {
     id: 0,
-    badge: "ðŸ›¡ï¸ AGROU TANI",
+    badge: "AGROU TANI",
     badgeColor: "bg-(--color-lime) text-(--color-forest-dark)",
-    title: "Bukan Petaninya yang Salah. Produknya yang Tidak Tepat.",
-    accentWord: "Tidak Tepat",
+    title: "Hasil Panen Maksimal Dimulai dari Produk yang Tepat",
+    accentWord: "Produk yang Tepat",
     subtext:
-      "Selama ini pupuk dan pestisida sering dibeli berdasarkan kebiasaan. Sekarang saatnya memilih berdasarkan diagnosis.",
+      "Diagnosis lahan berbasis AI membantu petani memilih produk proteksi yang sesuai, bukan sekadar berdasarkan kebiasaan.",
     cta: "Mulai Diagnosis",
     targetId: "module-intro",
   },
   {
     id: 1,
-    badge: "ðŸª AGROU PASAR",
+    badge: "AGROU PASAR",
     badgeColor: "bg-(--color-lime) text-(--color-forest-dark)",
-    title: "Panen Sudah Bagus, Tapi Harga Masih Segitu?",
-    accentWord: "Harga",
+    title: "Kualitas Panen Terbaik Layak Mendapat Harga Terbaik",
+    accentWord: "Harga Terbaik",
     subtext:
-      "Masalahnya bukan kualitas panenmu â€” masalahnya belum banyak pembeli yang tahu nilainya.",
+      "Platform kami menghubungkan hasil panen koperasi langsung ke pembeli premium tanpa perantara berlapis.",
     cta: "Jual di Pasar",
     targetId: "module-intro",
   },
   {
     id: 2,
-    badge: "ðŸ›¡ï¸ AGROU TANI",
+    badge: "AGROU TANI",
     badgeColor: "bg-(--color-lime) text-(--color-forest-dark)",
     title: "47 Komoditas. Langsung dari Sumbernya.",
     accentWord: "Sumbernya",
     subtext:
-      "Produk lokal terbaik dari koperasi dan petani, tanpa perantara berlapis dan tanpa markup tengkulak.",
+      "Produk pertanian dan perikanan terbaik Indonesia, langsung dari koperasi terverifikasi tanpa markup tengkulak.",
     cta: "Lihat Produk",
     targetId: "module-intro",
   },
@@ -144,9 +144,9 @@ export default function Hero() {
                           el?.scrollIntoView({ behavior: "smooth" });
                         }
                       }}
-                      className="bg-(--color-lime) text-(--color-forest-dark) font-black px-7 py-3 rounded-full text-sm tracking-wide hover:brightness-110 hover:scale-105 active:scale-95 transition-all duration-200 shadow-[0_4px_20px_rgba(181,242,61,0.35)]"
+                      className="bg-(--color-lime) text-(--color-forest-dark) font-black px-7 py-3 rounded-full text-sm tracking-wide hover:brightness-110 hover:scale-105 active:scale-95 transition-all duration-200 shadow-[0_4px_20px_rgba(179,204,4,0.35)]"
                     >
-                      {SLIDES[activeSlide].cta} â†’
+                      {SLIDES[activeSlide].cta} →
                     </button>
                   </div>
 

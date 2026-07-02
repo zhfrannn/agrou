@@ -44,8 +44,16 @@ export interface KoperasiRow {
   banner_url: string | null;
   location: string | null;
   province: string | null;
+  website: string | null;
+  email: string | null;
+  phone: string | null;
+  established_year: number | null;
+  komoditas: string[];
   rating: number;
   member_count: number;
+  total_products: number;
+  total_orders: number;
+  total_revenue: number;
   is_verified: boolean;
   created_at: string;
   updated_at: string;
@@ -155,6 +163,45 @@ export interface KomunitasPost {
   updated_at: string;
 }
 
+export type NotificationType =
+  "order" | "shield" | "system" | "promo" | "member";
+
+// Named AppNotification to avoid conflict with DOM global Notification interface
+export interface AppNotification {
+  id: string;
+  user_id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  data: Record<string, unknown>;
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface CartItem {
+  id: string;
+  user_id: string;
+  product_id: string;
+  qty: number;
+  created_at: string;
+}
+
+export interface Wishlist {
+  id: string;
+  user_id: string;
+  product_id: string;
+  created_at: string;
+}
+
+export interface Review {
+  id: string;
+  product_id: string;
+  user_id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+}
+
 // ── Supabase Database type ──────────────────────────────────────────────────
 export type Database = {
   public: {
@@ -163,24 +210,28 @@ export type Database = {
         Row: Profile;
         Insert: Partial<Profile> & Pick<Profile, "id" | "full_name">;
         Update: Partial<Profile>;
+        Relationships: [];
       };
       koperasi: {
         Row: KoperasiRow;
         Insert: Partial<KoperasiRow> &
           Pick<KoperasiRow, "owner_id" | "name" | "slug">;
         Update: Partial<KoperasiRow>;
+        Relationships: [];
       };
       products: {
         Row: Product;
         Insert: Partial<Product> &
           Pick<Product, "seller_id" | "name" | "price" | "unit" | "category">;
         Update: Partial<Product>;
+        Relationships: [];
       };
       orders: {
         Row: Order;
         Insert: Partial<Order> &
           Pick<Order, "buyer_id" | "seller_id" | "status" | "total_amount">;
         Update: Partial<Order>;
+        Relationships: [];
       };
       order_items: {
         Row: OrderItem;
@@ -190,18 +241,21 @@ export type Database = {
             "order_id" | "product_id" | "qty" | "unit_price" | "subtotal"
           >;
         Update: Partial<OrderItem>;
+        Relationships: [];
       };
       shield_products: {
         Row: ShieldProduct;
         Insert: Partial<ShieldProduct> &
           Pick<ShieldProduct, "name" | "price" | "coverage" | "duration_days">;
         Update: Partial<ShieldProduct>;
+        Relationships: [];
       };
       shield_orders: {
         Row: ShieldOrder;
         Insert: Partial<ShieldOrder> &
           Pick<ShieldOrder, "user_id" | "shield_product_id" | "status">;
         Update: Partial<ShieldOrder>;
+        Relationships: [];
       };
       member_needs: {
         Row: MemberNeed;
@@ -211,12 +265,41 @@ export type Database = {
             "koperasi_id" | "title" | "category" | "quantity" | "unit"
           >;
         Update: Partial<MemberNeed>;
+        Relationships: [];
       };
       komunitas_posts: {
         Row: KomunitasPost;
         Insert: Partial<KomunitasPost> &
           Pick<KomunitasPost, "user_id" | "content">;
         Update: Partial<KomunitasPost>;
+        Relationships: [];
+      };
+      notifications: {
+        Row: AppNotification;
+        Insert: Partial<AppNotification> &
+          Pick<AppNotification, "user_id" | "type" | "title" | "message">;
+        Update: Partial<AppNotification>;
+        Relationships: [];
+      };
+      cart_items: {
+        Row: CartItem;
+        Insert: Partial<CartItem> &
+          Pick<CartItem, "user_id" | "product_id" | "qty">;
+        Update: Partial<CartItem>;
+        Relationships: [];
+      };
+      wishlists: {
+        Row: Wishlist;
+        Insert: Partial<Wishlist> & Pick<Wishlist, "user_id" | "product_id">;
+        Update: Partial<Wishlist>;
+        Relationships: [];
+      };
+      reviews: {
+        Row: Review;
+        Insert: Partial<Review> &
+          Pick<Review, "product_id" | "user_id" | "rating">;
+        Update: Partial<Review>;
+        Relationships: [];
       };
     };
     Enums: {

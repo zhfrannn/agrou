@@ -623,7 +623,7 @@ export default function BrandPage() {
 
               {/* CTA row */}
               <div className="flex flex-wrap items-center gap-3">
-                <button className="bg-(--color-lime) text-(--color-forest-dark) font-black px-6 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(181,242,61,0.3)] cursor-pointer">
+                <button className="bg-(--color-lime) text-(--color-forest-dark) font-black px-6 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(179,204,4,0.3)] cursor-pointer">
                   Ceritakan Kebutuhanmu
                 </button>
                 <button

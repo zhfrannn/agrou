@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import type { User } from "@supabase/supabase-js";
 import supabase from "../lib/supabase";
 import type { Profile, UserRole } from "../lib/database.types";
@@ -15,6 +21,8 @@ interface AuthContextValue {
     role: UserRole,
   ) => Promise<void>;
   signOut: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
+  updateProfile: (updates: Partial<Profile>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -37,25 +45,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const loadProfile = useCallback(async (userId: string) => {
+    const p = await fetchProfile(userId);
+    setProfile(p);
+  }, []);
+
   useEffect(() => {
-    // Hydrate session on mount
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       setUser(session?.user ?? null);
-      if (session?.user) {
-        const p = await fetchProfile(session.user.id);
-        setProfile(p);
-      }
+      if (session?.user) await loadProfile(session.user.id);
       setLoading(false);
     });
 
-    // Listen for auth state changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        const p = await fetchProfile(session.user.id);
-        setProfile(p);
+        await loadProfile(session.user.id);
       } else {
         setProfile(null);
       }
@@ -63,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [loadProfile]);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -79,15 +86,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fullName: string,
     role: UserRole,
   ) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName, role } },
+    });
     if (error) throw error;
+
+    // Upsert profile — trigger handles INSERT but upsert is safe fallback
     if (data.user) {
-      const { error: profileError } = await supabase.from("profiles").insert({
-        id: data.user.id,
-        full_name: fullName,
-        role,
-      } as any);
-      if (profileError) throw profileError;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: profileError } = await (supabase as any)
+        .from("profiles")
+        .upsert(
+          { id: data.user.id, full_name: fullName, role },
+          { onConflict: "id" },
+        );
+      if (profileError)
+        console.warn("Profile upsert warning:", profileError.message);
     }
   };
 
@@ -98,9 +114,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setProfile(null);
   };
 
+  const refreshProfile = useCallback(async () => {
+    if (user) await loadProfile(user.id);
+  }, [user, loadProfile]);
+
+  const updateProfile = useCallback(
+    async (updates: Partial<Profile>) => {
+      if (!user) throw new Error("Not authenticated");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error } = await (supabase as any)
+        .from("profiles")
+        .update(updates)
+        .eq("id", user.id);
+      if (error) throw error;
+      await loadProfile(user.id);
+    },
+    [user, loadProfile],
+  );
+
   return (
     <AuthContext.Provider
-      value={{ user, profile, loading, signIn, signUp, signOut }}
+      value={{
+        user,
+        profile,
+        loading,
+        signIn,
+        signUp,
+        signOut,
+        refreshProfile,
+        updateProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>

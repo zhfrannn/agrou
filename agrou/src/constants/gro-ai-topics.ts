@@ -5,7 +5,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "regulasi",
     category: "Regulasi",
-    icon: "📋",
+    icon: "",
     title: "Regulasi Ekspor",
     desc: "Persyaratan, izin, dan standar ekspor",
     prompts: [
@@ -18,7 +18,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "pasar",
     category: "Pasar",
-    icon: "🌍",
+    icon: "",
     title: "Analisis Pasar",
     desc: "Tren harga dan peluang pasar global",
     prompts: [
@@ -31,7 +31,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "logistik",
     category: "Logistik",
-    icon: "🚢",
+    icon: "",
     title: "Logistik & Pengiriman",
     desc: "Rantai pasok dan pengiriman internasional",
     prompts: [
@@ -44,7 +44,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "sertifikasi",
     category: "Sertifikasi",
-    icon: "🏆",
+    icon: "",
     title: "Sertifikasi & Standar",
     desc: "Sertifikasi internasional dan standar mutu",
     prompts: [
@@ -57,7 +57,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "keuangan",
     category: "Keuangan",
-    icon: "💰",
+    icon: "",
     title: "Keuangan Ekspor",
     desc: "Pembiayaan, asuransi, dan manajemen risiko",
     prompts: [
@@ -70,7 +70,7 @@ export const CHAT_TOPICS: ChatTopic[] = [
   {
     id: "branding",
     category: "Branding",
-    icon: "✨",
+    icon: "",
     title: "Branding & Pemasaran",
     desc: "Strategi merek dan pemasaran internasional",
     prompts: [

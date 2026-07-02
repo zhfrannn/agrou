@@ -114,6 +114,219 @@ const CAT_COLORS: Record<string, string> = {
 
 const SORT_OPTIONS = ["Populer", "Terbaru", "Terlaris", "Harga ↑", "Harga ↓"];
 
+const STATIC_PRODUCTS: DisplayProduct[] = [
+  {
+    id: "s1",
+    name: "Benih Padi Ciherang 5kg",
+    cat: "Padi",
+    price: 45000,
+    originalPrice: 55000,
+    discount: 18,
+    rating: 4.8,
+    sold: "2.1rb",
+    image:
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["padi"],
+    tipe: ["benih"],
+  },
+  {
+    id: "s2",
+    name: "Pupuk Urea Granul 50kg",
+    cat: "Padi",
+    price: 115000,
+    originalPrice: 130000,
+    discount: 12,
+    rating: 4.7,
+    sold: "1.5rb",
+    image:
+      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["padi", "jagung"],
+    tipe: ["pupuk"],
+  },
+  {
+    id: "s3",
+    name: "Benih Jagung Hibrida Pioneer 1kg",
+    cat: "Jagung",
+    price: 85000,
+    originalPrice: 95000,
+    discount: 11,
+    rating: 4.9,
+    sold: "980",
+    image:
+      "https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["jagung"],
+    tipe: ["benih"],
+  },
+  {
+    id: "s4",
+    name: "Pestisida Fungisida Dithane 200g",
+    cat: "Lainnya",
+    price: 32000,
+    originalPrice: 38000,
+    discount: 16,
+    rating: 4.5,
+    sold: "3.2rb",
+    image:
+      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["sayuran", "buah"],
+    tipe: ["pestisida"],
+  },
+  {
+    id: "s5",
+    name: "Benih Kedelai Anjasmoro 1kg",
+    cat: "Kedelai",
+    price: 28000,
+    originalPrice: 33000,
+    discount: 15,
+    rating: 4.6,
+    sold: "760",
+    image:
+      "https://images.unsplash.com/photo-1563746924237-f81d1a6a5a7a?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["kedelai"],
+    tipe: ["benih"],
+  },
+  {
+    id: "s6",
+    name: "Bibit Cabai Rawit TM 999 100biji",
+    cat: "Sayuran",
+    price: 22000,
+    originalPrice: 27000,
+    discount: 19,
+    rating: 4.7,
+    sold: "1.8rb",
+    image:
+      "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["sayuran"],
+    tipe: ["benih"],
+  },
+  {
+    id: "s7",
+    name: "Bibit Tomat Servo F1 50biji",
+    cat: "Sayuran",
+    price: 18000,
+    originalPrice: 22000,
+    discount: 18,
+    rating: 4.8,
+    sold: "2.4rb",
+    image:
+      "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["sayuran"],
+    tipe: ["benih"],
+  },
+  {
+    id: "s8",
+    name: "Bibit Mangga Harum Manis 1m",
+    cat: "Buah",
+    price: 65000,
+    originalPrice: 75000,
+    discount: 13,
+    rating: 4.6,
+    sold: "430",
+    image:
+      "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["buah"],
+    tipe: ["bibit"],
+  },
+  {
+    id: "s9",
+    name: "Bibit Kelapa Sawit Unggul 1 btg",
+    cat: "Perkebunan",
+    price: 35000,
+    originalPrice: 42000,
+    discount: 17,
+    rating: 4.5,
+    sold: "620",
+    image:
+      "https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["perkebunan"],
+    tipe: ["bibit"],
+  },
+  {
+    id: "s10",
+    name: "Konsentrat Ayam Broiler 10kg",
+    cat: "Peternakan",
+    price: 145000,
+    originalPrice: 160000,
+    discount: 9,
+    rating: 4.7,
+    sold: "890",
+    image:
+      "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["peternakan"],
+    tipe: ["pakan"],
+  },
+  {
+    id: "s11",
+    name: "Pakan Ikan Lele Apung 10kg",
+    cat: "Perikanan",
+    price: 95000,
+    originalPrice: 108000,
+    discount: 12,
+    rating: 4.8,
+    sold: "1.1rb",
+    image:
+      "https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["perikanan"],
+    tipe: ["pakan"],
+  },
+  {
+    id: "s12",
+    name: "Pupuk NPK Mutiara 16-16-16 25kg",
+    cat: "Padi",
+    price: 185000,
+    originalPrice: 210000,
+    discount: 12,
+    rating: 4.9,
+    sold: "3.5rb",
+    image:
+      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["padi", "sayuran"],
+    tipe: ["pupuk"],
+  },
+  {
+    id: "s13",
+    name: "Bibit Pisang Cavendish Kultur Jaringan",
+    cat: "Buah",
+    price: 15000,
+    originalPrice: 18000,
+    discount: 17,
+    rating: 4.6,
+    sold: "2.7rb",
+    image:
+      "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["buah"],
+    tipe: ["bibit"],
+  },
+  {
+    id: "s14",
+    name: "Herbisida Roundup 1 Liter",
+    cat: "Lainnya",
+    price: 78000,
+    originalPrice: 90000,
+    discount: 13,
+    rating: 4.4,
+    sold: "1.3rb",
+    image:
+      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["padi", "perkebunan"],
+    tipe: ["pestisida"],
+  },
+  {
+    id: "s15",
+    name: "Benih Bawang Merah Brebes 500g",
+    cat: "Sayuran",
+    price: 55000,
+    originalPrice: 65000,
+    discount: 15,
+    rating: 4.7,
+    sold: "1.9rb",
+    image:
+      "https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?auto=format&fit=crop&q=80&w=400",
+    komoditas: ["sayuran"],
+    tipe: ["benih"],
+  },
+];
+
 function formatRp(n: number) {
   return "Rp " + n.toLocaleString("id-ID");
 }
@@ -451,7 +664,10 @@ export default function KatalogPage() {
 
   // ── Filter + Sort logic ──
   const filtered = useMemo(() => {
-    const allProducts: DisplayProduct[] = (rawProducts ?? []).map(dbToDisplay);
+    const allProducts: DisplayProduct[] =
+      rawProducts && rawProducts.length > 0
+        ? rawProducts.map(dbToDisplay)
+        : STATIC_PRODUCTS;
     let items = [...allProducts];
 
     // Category
@@ -530,12 +746,6 @@ export default function KatalogPage() {
     setFilters(f);
     setCurrentPage(1);
   };
-
-  if (isLoading) return <ProductCardSkeleton count={15} />;
-  if (error)
-    return (
-      <ErrorState message="Gagal memuat produk. Coba lagi." onRetry={refetch} />
-    );
 
   return (
     <>
@@ -619,8 +829,24 @@ export default function KatalogPage() {
                 </div>
               </div>
 
+              {/* Inline error banner */}
+              {error && (
+                <ErrorState
+                  message="Gagal memuat produk. Coba lagi."
+                  onRetry={refetch}
+                />
+              )}
+
               {/* Product grid — 5 columns */}
-              {paginated.length > 0 ? (
+              {isLoading ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {Array.from({ length: 15 }).map((_, i) => (
+                    <div key={i}>
+                      <ProductCardSkeleton />
+                    </div>
+                  ))}
+                </div>
+              ) : paginated.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
                   {paginated.map((prod) => (
                     <ProductCard key={prod.id} prod={prod} />
@@ -691,8 +917,8 @@ export default function KatalogPage() {
           >
             {/* Pulsing indicator */}
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b5f23d] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#b5f23d]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b3cc04] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#b3cc04]"></span>
             </span>
             <Bot size={18} className="shrink-0" />
             <span className="text-sm font-bold tracking-wide">
@@ -735,8 +961,8 @@ export default function KatalogPage() {
                 <div className="flex items-center gap-2">
                   {/* Pulsing dot */}
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b5f23d] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b5f23d]"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b3cc04] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b3cc04]"></span>
                   </span>
                   <Bot size={18} className="text-white" />
                   <span className="text-white font-bold text-sm tracking-wide">

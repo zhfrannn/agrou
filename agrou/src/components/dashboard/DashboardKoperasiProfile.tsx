@@ -16,7 +16,7 @@ import AvatarUpload from "../ui/AvatarUpload";
 import toast from "react-hot-toast";
 
 export default function DashboardKoperasiProfile() {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const {
     data: koperasi,
     isLoading,
@@ -30,6 +30,10 @@ export default function DashboardKoperasiProfile() {
     description: "",
     location: "",
     province: "",
+    phone: "",
+    email: "",
+    website: "",
+    established_year: "" as string | number,
   });
   const [synced, setSynced] = useState(false);
   const [komoditas, setKomoditas] = useState<string[]>([]);
@@ -42,14 +46,30 @@ export default function DashboardKoperasiProfile() {
       description: koperasi.description ?? "",
       location: koperasi.location ?? "",
       province: koperasi.province ?? "",
+      phone: koperasi.phone ?? "",
+      email: koperasi.email ?? "",
+      website: koperasi.website ?? "",
+      established_year: koperasi.established_year ?? "",
     });
     setSynced(true);
   }
 
   const handleSave = () => {
     if (!koperasi) return;
+    const updates: Record<string, unknown> = {
+      name: formData.name,
+      description: formData.description,
+      location: formData.location,
+      province: formData.province,
+      phone: formData.phone || null,
+      email: formData.email || null,
+      website: formData.website || null,
+    };
+    if (formData.established_year !== "") {
+      updates.established_year = Number(formData.established_year);
+    }
     updateKoperasi.mutate(
-      { id: koperasi.id, updates: formData },
+      { id: koperasi.id, updates },
       {
         onSuccess: () => toast.success("Profil koperasi berhasil disimpan"),
         onError: () => toast.error("Gagal menyimpan profil koperasi"),

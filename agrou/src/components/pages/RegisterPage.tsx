@@ -49,7 +49,7 @@ export default function RegisterPage({
       <div className="p-5">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-[#b5f23d] hover:text-white transition-colors text-sm font-medium"
+          className="flex items-center gap-2 text-[#b3cc04] hover:text-white transition-colors text-sm font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Kembali
@@ -61,13 +61,13 @@ export default function RegisterPage({
         <div className="w-full max-w-sm bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
-            <div className="w-12 h-12 bg-[#b5f23d] rounded-2xl flex items-center justify-center mb-3">
+            <div className="w-12 h-12 bg-[#b3cc04] rounded-2xl flex items-center justify-center mb-3">
               <Leaf className="w-6 h-6 text-[#0d2918]" />
             </div>
             <h1 className="text-2xl font-bold text-white font-display">
               Agrou
             </h1>
-            <p className="text-[#b5f23d]/70 text-sm mt-1">Buat akun baru</p>
+            <p className="text-[#b3cc04]/70 text-sm mt-1">Buat akun baru</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,7 +82,7 @@ export default function RegisterPage({
                 onChange={(e) => setFullName(e.target.value)}
                 required
                 placeholder="Nama Anda"
-                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b5f23d] transition-colors"
+                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b3cc04] transition-colors"
               />
             </div>
 
@@ -97,7 +97,7 @@ export default function RegisterPage({
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="nama@email.com"
-                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b5f23d] transition-colors"
+                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b3cc04] transition-colors"
               />
             </div>
 
@@ -113,7 +113,7 @@ export default function RegisterPage({
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Min. 6 karakter"
-                  className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 pr-12 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b5f23d] transition-colors"
+                  className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 pr-12 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#b3cc04] transition-colors"
                 />
                 <button
                   type="button"
@@ -137,7 +137,7 @@ export default function RegisterPage({
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value as UserRole)}
-                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#b5f23d] transition-colors appearance-none"
+                className="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#b3cc04] transition-colors appearance-none"
               >
                 <option value="pembeli" className="bg-[#0d2918]">
                   Pembeli
@@ -155,7 +155,7 @@ export default function RegisterPage({
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#b5f23d] hover:bg-[#9fcb1f] text-[#0d2918] font-semibold rounded-xl py-3 mt-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-[#b3cc04] hover:bg-[#96ac03] text-[#0d2918] font-semibold rounded-xl py-3 mt-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading && (
                 <div className="w-4 h-4 border-2 border-[#0d2918]/40 rounded-full border-t-[#0d2918] animate-spin" />
@@ -168,7 +168,7 @@ export default function RegisterPage({
             Sudah punya akun?{" "}
             <button
               onClick={onGoToLogin}
-              className="text-[#b5f23d] hover:text-white transition-colors font-medium"
+              className="text-[#b3cc04] hover:text-white transition-colors font-medium"
             >
               Masuk
             </button>

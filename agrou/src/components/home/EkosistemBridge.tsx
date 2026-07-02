@@ -199,14 +199,14 @@ export default function EkosistemBridge() {
                 Sehatkan Lahan. Kuatkan Pasar. Buktikan dengan Data.
               </h2>
               <p className="text-[var(--color-text-secondary)] font-medium text-sm lg:text-base leading-relaxed mb-6">
-                Agrou bukan sekadar marketplace — ini ekosistem yang saling
-                mengunci. Setiap pembelian proteksi lahan di Agrou Tani
+                Agrou bukan sekadar marketplace. Ini adalah ekosistem yang
+                saling terhubung. Setiap pembelian proteksi lahan di Agrou Tani
                 membangun rekam jejak yang otomatis menjadi badge{" "}
                 <span className="font-bold text-[var(--color-forest)]">
                   Verified Protected Farm
                 </span>{" "}
-                di Agrou Pasar — membuka akses ke pembeli premium yang mau bayar
-                lebih tinggi.
+                di Agrou Pasar. Akses terbuka ke pembeli premium yang bersedia
+                membayar lebih tinggi.
               </p>
             </div>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import type { KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   MessageSquare,
@@ -20,6 +21,7 @@ import heroShield2 from "@assets/hero-shield-2.jpg";
 import { useNavigate } from "react-router-dom";
 import { useShieldProducts } from "../../lib/queries/shield";
 import { ProductCardSkeleton } from "../ui/LoadingSkeleton";
+import { callGroAI } from "../../lib/groai-client";
 // ─── COLOUR TOKENS ─────────────────────────────────────────────────────────────
 // Primary: #1B4D3E (dark green)   Accent: #F59E0B (amber/orange)
 // Light green surface: #F0FFF4    Dark green hover: #163D30
@@ -1084,6 +1086,153 @@ function StandardGridCard({ prod }: { prod: (typeof TOP_RATED_PRODUCTS)[0] }) {
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
 
+// ─── HERO CHAT WIDGET ────────────────────────────────────────────────────────
+
+const HERO_CHAT_SYSTEM_PROMPT = `Kamu adalah asisten proteksi tanaman dari Agrou Tani.
+Tugasmu: diagnosis masalah tanaman/lahan user melalui percakapan singkat, lalu rekomendasikan produk proteksi yang tersedia di Agrou Tani.
+
+Aturan:
+- Jawab singkat, maksimal 2-3 kalimat per pesan
+- Tanya satu pertanyaan klarifikasi per giliran jika perlu (komoditas, gejala, tingkat keparahan)
+- Setelah cukup info (biasanya 2-3 pesan), langsung rekomendasikan produk spesifik dengan harga
+- Format rekomendasi: nama paket, produk yang termasuk, harga total
+- Bahasa Indonesia santai dan langsung ke inti
+- Jangan bertele-tele, jangan gunakan emoji
+- Produk yang tersedia: fungisida, insektisida, herbisida, pupuk, probiotik, benih, ZPT, paket bundle`;
+
+type ChatMsg = { role: "user" | "assistant"; content: string };
+
+function HeroChatWidget({ onOpenFull }: { onOpenFull: () => void }) {
+  const [messages, setMessages] = useState<ChatMsg[]>([
+    {
+      role: "assistant",
+      content: "Ada masalah apa di lahan atau tanaman kamu?",
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const send = async () => {
+    const text = input.trim();
+    if (!text || loading) return;
+
+    const userMsg: ChatMsg = { role: "user", content: text };
+    const next = [...messages, userMsg];
+    setMessages(next);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const history = next.slice(0, -1).map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+      const { reply } = await callGroAI({
+        message: text,
+        systemPrompt: HERO_CHAT_SYSTEM_PROMPT,
+        history,
+      });
+      setMessages([...next, { role: "assistant", content: reply }]);
+    } catch {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content: "Koneksi gagal. Coba lagi atau buka chat lengkap.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-full min-h-0 overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-2.5">
+        <div className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-(--color-lime) animate-pulse" />
+          <span className="text-(--color-lime) text-[10px] font-black uppercase tracking-widest">
+            Diagnosis AI
+          </span>
+        </div>
+        <button
+          onClick={onOpenFull}
+          className="text-white/30 hover:text-white/60 text-[10px] transition-colors cursor-pointer"
+        >
+          Buka penuh
+        </button>
+      </div>
+
+      {/* Chat messages */}
+      <div
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto space-y-2 pr-0.5 scrollbar-hide min-h-0"
+      >
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+          >
+            <div
+              className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed ${
+                msg.role === "user"
+                  ? "bg-(--color-lime) text-(--color-forest-dark) font-medium rounded-br-sm"
+                  : "bg-white/10 text-white/90 rounded-bl-sm"
+              }`}
+            >
+              {msg.content}
+            </div>
+          </div>
+        ))}
+        {loading && (
+          <div className="flex justify-start">
+            <div className="bg-white/10 px-2.5 py-1.5 rounded-xl rounded-bl-sm flex items-center gap-1">
+              <span className="w-1 h-1 rounded-full bg-white/40 animate-bounce [animation-delay:0ms]" />
+              <span className="w-1 h-1 rounded-full bg-white/40 animate-bounce [animation-delay:150ms]" />
+              <span className="w-1 h-1 rounded-full bg-white/40 animate-bounce [animation-delay:300ms]" />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Input */}
+      <div className="mt-2.5 flex items-center gap-1.5">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKey}
+          placeholder="Ketik masalah lahan..."
+          disabled={loading}
+          className="flex-1 bg-white/10 border border-white/15 text-white placeholder-white/30 text-[11px] px-3 py-2 rounded-xl outline-none focus:border-(--color-lime)/50 focus:bg-white/15 transition-all disabled:opacity-50 min-w-0"
+        />
+        <button
+          onClick={send}
+          disabled={!input.trim() || loading}
+          className="shrink-0 w-7 h-7 bg-(--color-lime) text-(--color-forest-dark) rounded-xl flex items-center justify-center hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <ArrowRight size={13} strokeWidth={2.5} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function TaniPage() {
   const navigate = useNavigate();
   const goToKatalog = (category = "Semua Produk") =>
@@ -1156,17 +1305,6 @@ export default function TaniPage() {
 
   return (
     <div className="w-full bg-gray-50 min-h-screen font-sans">
-      {/* ── LOADING STATE ── */}
-      {isLoadingProducts && (
-        <div className="w-full flex items-center justify-center py-4">
-          <div className="flex items-center gap-2">
-            <div className="animate-spin w-5 h-5 border-2 border-[#1B4D3E] border-t-transparent rounded-full" />
-            <p className="text-xs font-semibold text-[#1B4D3E]">
-              Memuat produk...
-            </p>
-          </div>
-        </div>
-      )}
       {/* ── SECONDARY NAVIGATION BAR — FLOATING ── */}
       <div className="w-full bg-transparent sticky top-13 z-40 pt-1.5 pb-0.5">
         <div className="max-w-360 mx-auto px-6">
@@ -1339,30 +1477,8 @@ export default function TaniPage() {
           </div>
 
           {/* ── COLUMN RIGHT (25% / 1-col on lg) ── */}
-          <div className="relative rounded-2xl bg-(--color-forest-dark) p-4 overflow-hidden shadow-md border border-(--color-lime)/20 flex flex-col justify-between group min-h-85 transition-colors">
-            <div className="relative z-10 flex flex-col justify-between h-full w-full">
-              <div>
-                <p className="text-[10px] text-(--color-lime) font-bold uppercase tracking-wider mb-1">
-                  Solusi Cabai Sehat
-                </p>
-                <h3 className="font-display font-extrabold text-white text-lg leading-snug">
-                  Paket Antraknosa
-                  <br />
-                  Cabai Lebat
-                </h3>
-              </div>
-              <div>
-                <p className="text-white/60 text-[9px] leading-none mb-0.5">
-                  Hanya
-                </p>
-                <p className="font-black text-(--color-lime) text-2xl leading-none mb-3">
-                  Rp 175.000
-                </p>
-                <button className="bg-(--color-lime) text-(--color-forest-dark) font-black text-xs px-5 py-2 rounded-full transition-all hover:brightness-110 hover:scale-105 active:scale-95 cursor-pointer">
-                  Beli Sekarang
-                </button>
-              </div>
-            </div>
+          <div className="relative rounded-2xl bg-(--color-forest-dark) p-4 overflow-hidden shadow-md border border-(--color-lime)/20 flex flex-col group h-85 transition-colors">
+            <HeroChatWidget onOpenFull={() => setIsChatbotOpen(true)} />
           </div>
         </div>
       </section>

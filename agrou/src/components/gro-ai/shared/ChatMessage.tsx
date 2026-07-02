@@ -13,7 +13,7 @@ interface ChatMessageProps {
 
 export function ChatMessageBubble({
   message,
-  accentColor = "#b5f23d",
+  accentColor = "#b3cc04",
   userName = "Kamu",
   userInitial = "K",
   isLast = false,

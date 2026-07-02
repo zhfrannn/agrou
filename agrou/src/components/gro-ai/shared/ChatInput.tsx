@@ -21,7 +21,7 @@ export function ChatInput({
   imagePreview = null,
   onImageChange,
   placeholder = "Ketik pertanyaanmu...",
-  accentColor = "#b5f23d",
+  accentColor = "#b3cc04",
   showImageUpload = false,
 }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);

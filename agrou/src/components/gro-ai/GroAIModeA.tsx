@@ -182,8 +182,8 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
           <span>Ganti Mode</span>
         </button>
         <div className="flex items-center gap-2 px-1.5 mt-0.5">
-          <div className="w-5 h-5 rounded-md bg-[#b5f23d]/20 flex items-center justify-center">
-            <Sprout size={11} className="text-[#b5f23d]" />
+          <div className="w-5 h-5 rounded-md bg-[#b3cc04]/20 flex items-center justify-center">
+            <Sprout size={11} className="text-[#b3cc04]" />
           </div>
           <div>
             <h2 className="font-display font-black text-white text-sm leading-tight">
@@ -198,7 +198,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
       <div className="px-3 pt-3 pb-2 shrink-0">
         <button
           onClick={handleNewChat}
-          className="flex items-center gap-2 w-full px-3 py-2 rounded-xl bg-[#b5f23d]/15 hover:bg-[#b5f23d]/25 border border-[#b5f23d]/30 text-[#b5f23d] text-xs font-bold transition-all cursor-pointer"
+          className="flex items-center gap-2 w-full px-3 py-2 rounded-xl bg-[#b3cc04]/15 hover:bg-[#b3cc04]/25 border border-[#b3cc04]/30 text-[#b3cc04] text-xs font-bold transition-all cursor-pointer"
         >
           <Plus size={13} />
           New Chat
@@ -219,7 +219,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                 onClick={() => handleModuleClick(mod)}
                 className={
                   isActive
-                    ? "flex items-center gap-2 px-2.5 py-1.5 bg-[#b5f23d]/20 border-l-2 border-[#b5f23d] text-white font-bold text-xs w-full text-left rounded-r-lg transition-all cursor-pointer"
+                    ? "flex items-center gap-2 px-2.5 py-1.5 bg-[#b3cc04]/20 border-l-2 border-[#b3cc04] text-white font-bold text-xs w-full text-left rounded-r-lg transition-all cursor-pointer"
                     : "flex items-center gap-2 px-2.5 py-1.5 text-white/50 text-xs w-full text-left hover:bg-white/5 hover:text-white/80 transition-all cursor-pointer rounded-r-lg border-l-2 border-transparent"
                 }
               >
@@ -270,7 +270,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                 }}
                 className={
                   activeConversationId === conv.id
-                    ? "w-full text-left px-2 py-1 rounded-lg bg-[#b5f23d]/15 border border-[#b5f23d]/30 text-white text-[10px] font-bold truncate cursor-pointer"
+                    ? "w-full text-left px-2 py-1 rounded-lg bg-[#b3cc04]/15 border border-[#b3cc04]/30 text-white text-[10px] font-bold truncate cursor-pointer"
                     : "w-full text-left px-2 py-1 rounded-lg text-white/50 text-[10px] hover:bg-white/5 hover:text-white/80 truncate cursor-pointer transition-colors"
                 }
               >
@@ -298,16 +298,16 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
       }}
     >
       <div className="flex items-center gap-2 mb-4">
-        <Sparkles size={13} className="text-[#b5f23d]" />
-        <p className="text-[#b5f23d] text-[10px] font-black uppercase tracking-[0.15em]">
+        <Sparkles size={13} className="text-[#b3cc04]" />
+        <p className="text-[#b3cc04] text-[10px] font-black uppercase tracking-[0.15em]">
           Produk Rekomendasi
         </p>
       </div>
 
       {!showProducts ? (
         <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <div className="w-10 h-10 rounded-xl bg-[#b5f23d]/10 border border-[#b5f23d]/20 flex items-center justify-center mb-3">
-            <ShoppingCart size={18} className="text-[#b5f23d]/50" />
+          <div className="w-10 h-10 rounded-xl bg-[#b3cc04]/10 border border-[#b3cc04]/20 flex items-center justify-center mb-3">
+            <ShoppingCart size={18} className="text-[#b3cc04]/50" />
           </div>
           <p className="text-white/40 text-xs font-medium leading-relaxed">
             Produk akan direkomendasikan AI setelah diagnosis.
@@ -334,7 +334,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
             return (
               <div
                 key={product.id}
-                className="rounded-xl overflow-hidden border border-[#b5f23d]/20 hover:border-[#b5f23d]/50 transition-all shadow-sm"
+                className="rounded-xl overflow-hidden border border-[#b3cc04]/20 hover:border-[#b3cc04]/50 transition-all shadow-sm"
                 style={{ backgroundColor: "#f5f0e3" }}
               >
                 {/* Mockup image area */}
@@ -343,7 +343,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                 >
                   <span className="text-3xl">{mockupEmoji}</span>
                   {product.badge && (
-                    <span className="absolute top-1.5 left-1.5 bg-[#b5f23d] text-black text-[7px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wide">
+                    <span className="absolute top-1.5 left-1.5 bg-[#b3cc04] text-black text-[7px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wide">
                       {product.badge}
                     </span>
                   )}
@@ -373,7 +373,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                       {product.rating} · {product.sold}
                     </div>
                   </div>
-                  <button className="w-full bg-[#b5f23d]/20 hover:bg-[#b5f23d]/40 border border-[#b5f23d]/40 text-[#1a4a1a] text-[10px] font-bold py-1.5 rounded-lg transition-colors cursor-pointer">
+                  <button className="w-full bg-[#b3cc04]/20 hover:bg-[#b3cc04]/40 border border-[#b3cc04]/40 text-[#1a4a1a] text-[10px] font-bold py-1.5 rounded-lg transition-colors cursor-pointer">
                     Lihat Produk
                   </button>
                 </div>
@@ -436,7 +436,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
           onChange={handleImageUpload}
         />
         {imagePreview ? (
-          <div className="relative rounded-2xl overflow-hidden border border-[#b5f23d]/30">
+          <div className="relative rounded-2xl overflow-hidden border border-[#b3cc04]/30">
             <img
               src={imagePreview}
               alt="preview"
@@ -522,7 +522,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
               onClick={() =>
                 sendMessage(item.prompt, imagePreview ?? undefined)
               }
-              className="flex items-start gap-2 p-3 rounded-xl bg-black/5 border border-black/8 hover:border-[#b5f23d]/50 hover:bg-[#b5f23d]/8 transition-all text-left cursor-pointer group"
+              className="flex items-start gap-2 p-3 rounded-xl bg-black/5 border border-black/8 hover:border-[#b3cc04]/50 hover:bg-[#b3cc04]/8 transition-all text-left cursor-pointer group"
             >
               <span className="text-base shrink-0 mt-0.5">{item.icon}</span>
               <div>
@@ -550,10 +550,10 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
         transition={{ duration: 0.4 }}
         className="text-center mb-6"
       >
-        <div className="w-14 h-14 rounded-2xl bg-[#b5f23d]/10 border border-[#b5f23d]/20 flex items-center justify-center mx-auto mb-3">
+        <div className="w-14 h-14 rounded-2xl bg-[#b3cc04]/10 border border-[#b3cc04]/20 flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">{activeModule.icon}</span>
         </div>
-        <h2 className="font-display font-black text-[#b5f23d] text-xl mb-1">
+        <h2 className="font-display font-black text-[#b3cc04] text-xl mb-1">
           {activeModule.label}
         </h2>
         <p className="text-[#3d5a3d] text-sm">{activeModule.desc}</p>
@@ -566,11 +566,11 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
             onClick={() => sendMessage(prompt)}
-            className="text-left p-3 rounded-xl bg-black/5 border border-black/10 hover:border-[#b5f23d]/60 hover:bg-[#b5f23d]/10 transition-all text-[#2d472d] hover:text-[#1a2e1a] text-xs leading-relaxed cursor-pointer"
+            className="text-left p-3 rounded-xl bg-black/5 border border-black/10 hover:border-[#b3cc04]/60 hover:bg-[#b3cc04]/10 transition-all text-[#2d472d] hover:text-[#1a2e1a] text-xs leading-relaxed cursor-pointer"
           >
             <Sparkles
               size={10}
-              className="text-[#b5f23d] mb-1.5 inline-block mr-1"
+              className="text-[#b3cc04] mb-1.5 inline-block mr-1"
             />
             {prompt}
           </motion.button>
@@ -660,7 +660,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                 key={p}
                 onClick={() => sendMessage(p)}
                 disabled={loading}
-                className="shrink-0 text-[10px] text-[#1a2e1a]/50 bg-black/5 border border-black/10 hover:border-[#b5f23d]/30 hover:text-[#1a2e1a]/80 px-2.5 py-1 rounded-full transition-colors disabled:opacity-40"
+                className="shrink-0 text-[10px] text-[#1a2e1a]/50 bg-black/5 border border-black/10 hover:border-[#b3cc04]/30 hover:text-[#1a2e1a]/80 px-2.5 py-1 rounded-full transition-colors disabled:opacity-40"
               >
                 {p}
               </button>
@@ -689,21 +689,21 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                         className="w-full max-w-xs rounded-xl border border-white/10 mb-1"
                       />
                     )}
-                    <div className="px-3.5 py-2.5 rounded-2xl rounded-tr-sm text-[#1a2e1a] text-sm leading-relaxed bg-[#b5f23d]/10 border border-[#b5f23d]/20">
+                    <div className="px-3.5 py-2.5 rounded-2xl rounded-tr-sm text-[#1a2e1a] text-sm leading-relaxed bg-[#b3cc04]/10 border border-[#b3cc04]/20">
                       {msg.content}
                     </div>
                   </div>
-                  <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-[11px] font-black mt-0.5 bg-[#b5f23d]/20 text-[#b5f23d] border border-[#b5f23d]/40">
+                  <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-[11px] font-black mt-0.5 bg-[#b3cc04]/20 text-[#b3cc04] border border-[#b3cc04]/40">
                     {userInitial}
                   </div>
                 </div>
               ) : (
                 <div key={i} className="flex gap-3 px-4 py-2.5">
-                  <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-[11px] mt-0.5 bg-[#b5f23d]/20 border border-[#b5f23d]/30">
+                  <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-[11px] mt-0.5 bg-[#b3cc04]/20 border border-[#b3cc04]/30">
                     🌱
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[#b5f23d] font-bold text-xs mb-1.5">
+                    <p className="text-[#b3cc04] font-bold text-xs mb-1.5">
                       Gro AI
                     </p>
                     <div className="bg-black/5 border border-black/8 rounded-2xl rounded-tl-sm px-3.5 py-2.5">
@@ -758,13 +758,13 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
           <div className="flex items-end gap-2 bg-black/5 border border-black/10 rounded-2xl px-3 py-2 focus-within:border-black/20 transition-colors">
             <button
               onClick={() => cameraInputRef.current?.click()}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-white/40 hover:text-[#1a2e1a]/70 hover:bg-black/8 transition-colors shrink-0"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-[#1a2e1a]/50 hover:text-[#1a2e1a] hover:bg-black/8 transition-colors shrink-0"
             >
               <Camera size={15} />
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-white/40 hover:text-[#1a2e1a]/70 hover:bg-black/8 transition-colors shrink-0"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-[#1a2e1a]/50 hover:text-[#1a2e1a] hover:bg-black/8 transition-colors shrink-0"
             >
               <Upload size={15} />
             </button>
@@ -799,12 +799,12 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
               style={{
                 background:
                   !loading && (input.trim() || imagePreview)
-                    ? "#b5f23d"
+                    ? "#b3cc04"
                     : "transparent",
                 border:
                   !loading && (input.trim() || imagePreview)
                     ? "none"
-                    : "1px solid rgba(255,255,255,0.1)",
+                    : "1px solid rgba(0,0,0,0.1)",
               }}
             >
               <Send
@@ -812,7 +812,7 @@ export default function GroAIModeA({ onBack }: { onBack: () => void }) {
                 className={
                   !loading && (input.trim() || imagePreview)
                     ? "text-black"
-                    : "text-white/40"
+                    : "text-[#1a2e1a]/40"
                 }
               />
             </button>

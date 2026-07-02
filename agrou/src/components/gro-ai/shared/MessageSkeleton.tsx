@@ -8,14 +8,14 @@ export function MessageSkeleton({ label = "Gro AI sedang menganalisis..." }: Mes
   return (
     <div className="flex gap-3 px-4 py-3">
       {/* Avatar */}
-      <div className="w-7 h-7 rounded-full bg-[#b5f23d]/20 border border-[#b5f23d]/30 shrink-0 flex items-center justify-center">
+      <div className="w-7 h-7 rounded-full bg-[#b3cc04]/20 border border-[#b3cc04]/30 shrink-0 flex items-center justify-center">
         <span className="text-[10px]">🌱</span>
       </div>
 
       <div className="flex-1 space-y-2 pt-0.5">
         {/* Label */}
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[#b5f23d] text-xs font-bold">Gro AI</span>
+          <span className="text-[#b3cc04] text-xs font-bold">Gro AI</span>
           <motion.div
             className="flex gap-1"
             initial={{ opacity: 0.4 }}
@@ -25,7 +25,7 @@ export function MessageSkeleton({ label = "Gro AI sedang menganalisis..." }: Mes
             {[0, 1, 2].map((i) => (
               <motion.span
                 key={i}
-                className="w-1 h-1 bg-[#b5f23d] rounded-full block"
+                className="w-1 h-1 bg-[#b3cc04] rounded-full block"
                 animate={{ y: [0, -3, 0] }}
                 transition={{ delay: i * 0.15, repeat: Infinity, duration: 0.6 }}
               />

@@ -659,7 +659,7 @@ export default function GroAIModeB({ onBack }: { onBack: () => void }) {
                 width: kop.exportScore + "%",
                 background:
                   kop.exportScore >= 80
-                    ? "#b5f23d"
+                    ? "#b3cc04"
                     : kop.exportScore >= 60
                       ? "#f77f00"
                       : "#ef4444",

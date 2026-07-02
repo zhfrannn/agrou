@@ -383,12 +383,6 @@ export default function KoperasiPage() {
       ? rawKoperasi.map(dbToKoperasi)
       : KOPERASI_DATA.map((k) => ({ ...k, id: String(k.id) }));
 
-  if (isLoading) return <CardSkeleton count={6} />;
-  if (error)
-    return (
-      <ErrorState message="Gagal memuat data koperasi." onRetry={refetch} />
-    );
-
   return (
     <div className="w-full bg-(--color-cream) min-h-screen font-sans">
       {/* PAGE HEADER SECTION */}

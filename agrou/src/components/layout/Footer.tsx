@@ -37,8 +37,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-white/80 font-medium mb-4 leading-relaxed">
-              Tumbuh dan makmur bersama dalam satu platform ramah untuk desa,
-              memajukan koperasi dan kesejahteraan pangan.
+              Platform terintegrasi untuk koperasi desa, petani, dan pembeli.
+              Membangun rantai nilai pertanian Indonesia yang transparan dan
+              berkeadilan.
             </p>
             <div className="flex items-center gap-3">
               <button

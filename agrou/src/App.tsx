@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import type { ReactNode } from "react";
 import {
   Routes,
@@ -54,24 +55,17 @@ function PageLoader() {
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading)
-    return (
-      <div className="min-h-screen bg-[#0d1f15] flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-2 border-[#2d7a4f] rounded-full border-t-transparent" />
-      </div>
-    );
-  if (!user) return <Navigate to="/masuk" replace />;
+  const location = useLocation();
+
+  if (loading) return <PageLoader />;
+  if (!user) return <Navigate to="/masuk" state={{ from: location }} replace />;
   return <>{children}</>;
 }
 
 function AuthRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading)
-    return (
-      <div className="min-h-screen bg-[#0d1f15] flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-2 border-[#2d7a4f] rounded-full border-t-transparent" />
-      </div>
-    );
+
+  if (loading) return <PageLoader />;
   if (user) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }
@@ -191,6 +185,7 @@ export default function App() {
         </Suspense>
       </main>
       {!hideFooter && <Footer />}
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
     </div>
   );
 }

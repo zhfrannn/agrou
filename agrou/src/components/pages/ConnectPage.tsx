@@ -911,7 +911,7 @@ function HeroSection({
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
               <button
                 onClick={onOpenModal}
-                className="bg-[var(--color-lime)] text-[var(--color-forest-dark)] font-black px-7 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(181,242,61,0.3)] cursor-pointer border-none"
+                className="bg-[var(--color-lime)] text-[var(--color-forest-dark)] font-black px-7 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(179,204,4,0.3)] cursor-pointer border-none"
               >
                 {t("heroCtaPrimary")}
               </button>

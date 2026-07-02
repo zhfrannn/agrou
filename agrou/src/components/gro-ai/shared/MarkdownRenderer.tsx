@@ -27,7 +27,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
           }
           if (part.startsWith("`") && part.endsWith("`")) {
             return (
-              <code key={i} className="bg-white/10 text-[#b5f23d] px-1 py-0.5 rounded text-[0.85em] font-mono">
+              <code key={i} className="bg-white/10 text-[#b3cc04] px-1 py-0.5 rounded text-[0.85em] font-mono">
                 {part.slice(1, -1)}
               </code>
             );
@@ -62,7 +62,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
         <ol key={`ol-${i}`} className="space-y-1 my-1.5 pl-1">
           {listItems.map((item, idx) => (
             <li key={idx} className="flex gap-2 text-white/80 text-sm leading-relaxed">
-              <span className="text-[#b5f23d] font-bold shrink-0 w-4">{idx + 1}.</span>
+              <span className="text-[#b3cc04] font-bold shrink-0 w-4">{idx + 1}.</span>
               <span>{renderInline(item, idx)}</span>
             </li>
           ))}
@@ -82,7 +82,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
         <ul key={`ul-${i}`} className="space-y-1 my-1.5 pl-1">
           {listItems.map((item, idx) => (
             <li key={idx} className="flex gap-2 text-white/80 text-sm leading-relaxed">
-              <span className="text-[#b5f23d] shrink-0 mt-1.5">•</span>
+              <span className="text-[#b3cc04] shrink-0 mt-1.5">•</span>
               <span>{renderInline(item, idx)}</span>
             </li>
           ))}
