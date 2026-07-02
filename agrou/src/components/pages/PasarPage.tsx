@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronRight,
   Store,
@@ -446,9 +447,103 @@ const PRODUCTS = [
   },
 ];
 
+const CIRCULAR_WASTE = [
+  {
+    id: 1,
+    title: "Pupuk Kompos dari Sekam Padi",
+    koperasi: "KUD Subur Makmur",
+    location: "Cianjur, Jabar",
+    type: "Limbah Pertanian",
+    typeEmoji: "🌾",
+    impact: "2,4 ton CO₂ diserap / bulan",
+    volume: "800 kg / bulan",
+    badge: "Sirkular Aktif",
+    desc: "Sekam padi yang tak terpakai diolah menjadi pupuk kompos organik bermutu tinggi, menutup siklus limbah langsung di sumbernya.",
+    image:
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=800",
+    color: "#2D6A4F",
+  },
+  {
+    id: 2,
+    title: "Biogas dari Limbah Tambak Udang",
+    koperasi: "Koperasi Bahari Jaya",
+    location: "Sidoarjo, Jatim",
+    type: "Limbah Budidaya",
+    typeEmoji: "🦐",
+    impact: "Energi untuk 45 rumah tangga",
+    volume: "1,2 ton / bulan",
+    badge: "Energi Terbarukan",
+    desc: "Limbah organik tambak dikonversi menjadi biogas untuk memasok energi komunitas nelayan, menggantikan LPG konvensional.",
+    image:
+      "https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?auto=format&fit=crop&q=80&w=800",
+    color: "#008080",
+  },
+  {
+    id: 3,
+    title: "Pakan Ternak dari Ampas Kopi",
+    koperasi: "Koperasi Tani Maju Gayo",
+    location: "Bener Meriah, Aceh",
+    type: "Limbah Kopi",
+    typeEmoji: "☕",
+    impact: "1,1 ton limbah daur ulang",
+    volume: "400 kg / bulan",
+    badge: "Zero Waste",
+    desc: "Ampas dan kulit buah kopi diolah menjadi suplemen pakan ternak kambing dan sapi milik anggota koperasi.",
+    image:
+      "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&q=80&w=800",
+    color: "#F77F00",
+  },
+  {
+    id: 4,
+    title: "Karagenan dari Sisa Rumput Laut",
+    koperasi: "KUD Samudra Hijau",
+    location: "Nusa Penida, Bali",
+    type: "Limbah Laut",
+    typeEmoji: "🌿",
+    impact: "Ekspor 3 negara ASEAN",
+    volume: "600 kg / bulan",
+    badge: "Ekspor Hijau",
+    desc: "Sisa pengolahan rumput laut yang sebelumnya dibuang kini diekstrak menjadi karagenan food-grade untuk industri pangan.",
+    image:
+      "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&q=80&w=800",
+    color: "#2E8B57",
+  },
+  {
+    id: 5,
+    title: "Garam Mineral dari Air Limbah Kristalisasi",
+    koperasi: "Koperasi Garam Kusamba",
+    location: "Klungkung, Bali",
+    type: "Limbah Garam",
+    typeEmoji: "🧂",
+    impact: "Nihil limbah cair dibuang",
+    volume: "200 kg / bulan",
+    badge: "Ekonomi Sirkular",
+    desc: "Air bittern sisa kristalisasi garam diolah kembali menjadi garam mineral kaya magnesium untuk suplemen dan kosmetik.",
+    image:
+      "https://images.unsplash.com/photo-1587049352847-4d4b1ed74dc4?auto=format&fit=crop&q=80&w=800",
+    color: "#708090",
+  },
+  {
+    id: 6,
+    title: "Tepung Tulang Ikan untuk Pupuk",
+    koperasi: "Koperasi Nelayan Sejahtera",
+    location: "Demak, Jateng",
+    type: "Limbah Perikanan",
+    typeEmoji: "🐟",
+    impact: "300 ton ikan diproses utuh",
+    volume: "500 kg / bulan",
+    badge: "Limbah Nol",
+    desc: "Tulang dan sisik ikan yang tak terpakai diolah menjadi tepung tulang ikan organik sebagai pupuk fosfat alami untuk lahan pertanian.",
+    image:
+      "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?auto=format&fit=crop&q=80&w=800",
+    color: "#0077B6",
+  },
+];
+
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 
-export default function BrandPage() {
+export default function PasarPage() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("semua");
   const [selectedKoperasi, setSelectedKoperasi] = useState("");
   const [selectedKomoditas, setSelectedKomoditas] = useState("");
@@ -518,7 +613,10 @@ export default function BrandPage() {
         <div className="max-w-360 mx-auto px-8">
           <div className="bg-[#7a2e00] rounded-2xl shadow-lg shadow-[#7a2e00]/15 flex items-center gap-3 h-12 px-5">
             {/* Semua Kategori button */}
-            <button className="flex items-center gap-2 bg-(--color-orange-dark) text-white font-bold text-xs px-4 py-2 rounded-full whitespace-nowrap hover:bg-(--color-orange) transition-all shrink-0 cursor-pointer">
+            <button
+              onClick={() => navigate("/pasar/komoditas")}
+              className="flex items-center gap-2 bg-(--color-orange-dark) text-white font-bold text-xs px-4 py-2 rounded-full whitespace-nowrap hover:bg-(--color-orange) transition-all shrink-0 cursor-pointer"
+            >
               <span className="text-base leading-none">≡</span>
               Semua Komoditas
             </button>
@@ -1178,6 +1276,101 @@ export default function BrandPage() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════════════════
+          3.5 LIMBAH SIRKULAR
+      ════════════════════════════════════════════════════════════════════════ */}
+      <div className="max-w-360 mx-auto px-8 pb-16">
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="font-display font-black text-xl text-(--color-forest-dark)">
+              Limbah Sirkular
+            </h2>
+            <p className="text-sm text-(--color-text-secondary) mt-0.5">
+              Transformasi limbah koperasi menjadi produk bernilai ekonomi
+            </p>
+          </div>
+          <button className="flex items-center gap-1.5 text-sm font-bold text-(--color-orange) hover:text-(--color-orange-dark) transition-colors cursor-pointer">
+            Lihat Semua <ArrowRight size={16} />
+          </button>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 max-w-4xl">
+          {CIRCULAR_WASTE.map((item, i) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07, duration: 0.4 }}
+              className="bg-white rounded-2xl border border-(--color-border) shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-200"
+            >
+              {/* Cover Image */}
+              <div className="relative h-24 overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                {/* Type badge */}
+                <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-[9px] font-extrabold px-1.5 py-0.5 rounded-full flex items-center gap-0.5"
+                  style={{ color: item.color }}>
+                  {item.typeEmoji} {item.type}
+                </span>
+                {/* Sirkular badge */}
+                <span className="absolute top-2 right-2 text-[8px] font-extrabold px-1.5 py-0.5 rounded-full text-white"
+                  style={{ backgroundColor: item.color }}>
+                  {item.badge}
+                </span>
+                {/* Volume on image bottom */}
+                <div className="absolute bottom-2 left-2 flex items-center gap-1">
+                  <Leaf size={9} className="text-green-300" />
+                  <span className="text-white text-[9px] font-bold">{item.volume}</span>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="p-3 flex flex-col gap-1.5 flex-1">
+                <h3 className="font-display font-black text-xs text-(--color-forest-dark) leading-tight line-clamp-2">
+                  {item.title}
+                </h3>
+                <p className="text-[10px] text-(--color-text-secondary) leading-relaxed line-clamp-2">
+                  {item.desc}
+                </p>
+
+                {/* Koperasi info */}
+                <div className="flex items-center gap-1 mt-auto pt-1.5 border-t border-gray-100">
+                  <Store size={9} className="text-(--color-orange) shrink-0" />
+                  <span className="text-[9px] font-bold text-gray-600 truncate">{item.koperasi}</span>
+                  <span className="text-gray-300 text-[9px]">•</span>
+                  <MapPin size={8} className="text-gray-400 shrink-0" />
+                  <span className="text-[9px] text-gray-400 truncate">{item.location}</span>
+                </div>
+
+                {/* Impact row */}
+                <div className="flex items-center gap-1 bg-green-50 rounded-lg px-2 py-1.5">
+                  <Sparkles size={9} className="text-green-600 shrink-0" />
+                  <span className="text-[9px] font-extrabold text-green-700 leading-tight">{item.impact}</span>
+                </div>
+
+                {/* CTA buttons */}
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <button className="flex-1 bg-(--color-cream) hover:bg-(--color-orange) hover:text-white border border-(--color-orange)/25 text-(--color-orange-dark) font-bold text-[8px] py-1 rounded-lg text-center transition-all cursor-pointer">
+                    🌿 Lihat Detail
+                  </button>
+                  <button className="text-gray-400 hover:text-gray-600 font-extrabold text-[8px] px-1.5 py-1 whitespace-nowrap cursor-pointer">
+                    + Hubungi
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 

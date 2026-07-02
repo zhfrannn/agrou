@@ -27,7 +27,10 @@ import heroBg from "../assets/backgorund-hero.jpg";
 
 // Lazy-loaded page routes — split into separate chunks
 const TaniPage = lazy(() => import("./components/pages/TaniPage"));
-const BrandPage = lazy(() => import("./components/pages/BrandPage"));
+const KatalogTaniPage = lazy(
+  () => import("./components/pages/KatalogTaniPage"),
+);
+const PasarPage = lazy(() => import("./components/pages/PasarPage"));
 const DashboardPage = lazy(
   () => import("./components/dashboard/DashboardPage"),
 );
@@ -37,6 +40,9 @@ const KoperasiProfilePage = lazy(
 );
 const AboutPage = lazy(() => import("./components/pages/AboutPage"));
 const KatalogPage = lazy(() => import("./components/pages/KatalogPage"));
+const PasarKomoditasPage = lazy(
+  () => import("./components/pages/PasarKomoditasPage"),
+);
 const GroAIPage = lazy(() => import("./components/gro-ai/GroAIPage"));
 const ConnectPage = lazy(() => import("./components/pages/ConnectPage"));
 const ImportirProfilePage = lazy(
@@ -138,7 +144,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/katalog" element={<KatalogPage />} />
-            <Route path="/pasar" element={<BrandPage />} />
+            <Route path="/pasar" element={<PasarPage />} />
+            <Route path="/pasar/komoditas" element={<PasarKomoditasPage />} />
+            <Route path="/tani/katalog" element={<KatalogTaniPage />} />
             <Route
               path="/tani"
               element={

@@ -1536,102 +1536,97 @@ function LimbahCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="bg-white rounded-2xl border border-[var(--color-border)] mb-4 overflow-hidden hover:shadow-[0_4px_20px_rgba(26,61,46,0.08)] transition-all duration-200"
+      className="bg-white rounded-xl border border-[var(--color-border)] mb-3 overflow-hidden hover:shadow-[0_4px_20px_rgba(26,61,46,0.08)] transition-all duration-200"
     >
-      <div className="p-5">
-        <div className="flex items-start gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl overflow-hidden border border-[var(--color-border)] shrink-0 bg-[var(--color-forest)] flex items-center justify-center text-white font-black text-xs">
+      <div className="p-3.5">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-8 h-8 rounded-lg overflow-hidden border border-[var(--color-border)] shrink-0 bg-[var(--color-forest)] flex items-center justify-center text-white font-black text-[10px]">
             {post.coopAvatar}
           </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-bold text-sm text-[var(--color-forest-dark)] font-display">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="font-bold text-xs text-[var(--color-forest-dark)] font-display truncate">
                 {post.coopName}
               </span>
               {post.verified && (
-                <span className="bg-[var(--color-lime)] text-[var(--color-forest-dark)] text-[8px] font-black px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
-                  <CheckCircle2 size={8} /> {t("verifiedFarm")}
+                <span className="bg-[var(--color-lime)] text-[var(--color-forest-dark)] text-[7px] font-black px-1.5 py-0.5 rounded-full flex items-center gap-0.5 shrink-0">
+                  <CheckCircle2 size={7} /> {t("verifiedFarm")}
                 </span>
               )}
             </div>
-            <div className="text-[var(--color-text-secondary)] text-[10px] flex items-center gap-1 mt-0.5">
-              <Clock size={10} /> <span>{post.timestamp}</span>
-              <span className="mx-1">•</span>
-              <MapPin size={10} /> <span>{post.coopLocation}</span>
+            <div className="text-[var(--color-text-secondary)] text-[9px] flex items-center gap-1 mt-0.5">
+              <Clock size={9} /> <span>{post.timestamp}</span>
+              <span className="mx-0.5">•</span>
+              <MapPin size={9} /> <span className="truncate">{post.coopLocation}</span>
             </div>
           </div>
-        </div>
-
-        <div className="mb-3">
-          <span className="inline-flex bg-green-50 border border-green-200 text-green-700 text-[9px] font-black px-2.5 py-1 rounded-full uppercase">
+          <span className="inline-flex bg-green-50 border border-green-200 text-green-700 text-[8px] font-black px-2 py-0.5 rounded-full uppercase shrink-0">
             ♻️ {t("labelCircular")}
           </span>
         </div>
 
-        <h3 className="font-display font-bold text-base text-[var(--color-forest-dark)] leading-snug mb-3">
+        <h3 className="font-display font-bold text-sm text-[var(--color-forest-dark)] leading-snug mb-2 line-clamp-2">
           {post.title}
         </h3>
 
         {/* Specs grid */}
-        <div className="mb-4">
-          <div className="grid grid-cols-4 gap-3 bg-[var(--color-cream)] rounded-xl p-3">
-            <div className="text-center">
-              <p className="text-[var(--color-text-secondary)] text-[9px] font-medium uppercase tracking-wide mb-0.5">
-                {t("wasteType")}
-              </p>
-              <p className="text-[var(--color-forest-dark)] font-black text-xs truncate">
-                {post.wasteType}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-[var(--color-text-secondary)] text-[9px] font-medium uppercase tracking-wide mb-0.5">
-                {t("volume")}
-              </p>
-              <p className="text-[var(--color-forest-dark)] font-black text-xs truncate">
-                {post.volume}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-[var(--color-text-secondary)] text-[9px] font-medium uppercase tracking-wide mb-0.5">
-                {t("condition")}
-              </p>
-              <p className="text-[var(--color-forest-dark)] font-black text-xs truncate">
-                {post.condition}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-[var(--color-text-secondary)] text-[9px] font-medium uppercase tracking-wide mb-0.5">
-                {t("price")}
-              </p>
-              <p className="text-[var(--color-forest-dark)] font-black text-xs truncate">
-                {post.price}
-              </p>
-            </div>
+        <div className="grid grid-cols-4 gap-2 bg-[var(--color-cream)] rounded-lg p-2 mb-2">
+          <div className="text-center">
+            <p className="text-[var(--color-text-secondary)] text-[8px] font-medium uppercase tracking-wide mb-0.5">
+              {t("wasteType")}
+            </p>
+            <p className="text-[var(--color-forest-dark)] font-black text-[10px] truncate">
+              {post.wasteType}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-[var(--color-text-secondary)] text-[8px] font-medium uppercase tracking-wide mb-0.5">
+              {t("volume")}
+            </p>
+            <p className="text-[var(--color-forest-dark)] font-black text-[10px] truncate">
+              {post.volume}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-[var(--color-text-secondary)] text-[8px] font-medium uppercase tracking-wide mb-0.5">
+              {t("condition")}
+            </p>
+            <p className="text-[var(--color-forest-dark)] font-black text-[10px] truncate">
+              {post.condition}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-[var(--color-text-secondary)] text-[8px] font-medium uppercase tracking-wide mb-0.5">
+              {t("price")}
+            </p>
+            <p className="text-[var(--color-forest-dark)] font-black text-[10px] truncate">
+              {post.price}
+            </p>
           </div>
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1 mb-2">
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-[var(--color-forest)]/8 text-[var(--color-forest)] text-[10px] font-bold px-2 py-0.5 rounded-full"
+              className="bg-[var(--color-forest)]/8 text-[var(--color-forest)] text-[9px] font-bold px-1.5 py-0.5 rounded-full"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
-          <div className="flex items-center gap-4 text-[11px] text-[var(--color-text-secondary)]">
+        <div className="flex items-center justify-between pt-2.5 border-t border-[var(--color-border)]">
+          <div className="flex items-center gap-3 text-[10px] text-[var(--color-text-secondary)]">
             <span className="flex items-center gap-1">
-              <Eye size={12} /> {post.views}
+              <Eye size={11} /> {post.views}
             </span>
             <span className="flex items-center gap-1">
-              <MessageSquare size={12} /> {post.responses}
+              <MessageSquare size={11} /> {post.responses}
             </span>
           </div>
-          <button className="px-5 py-2.5 rounded-xl bg-green-600 text-white font-bold text-xs hover:bg-green-700 transition-all cursor-pointer border-none">
+          <button className="px-3.5 py-1.5 rounded-lg bg-green-600 text-white font-bold text-[11px] hover:bg-green-700 transition-all cursor-pointer border-none">
             {t("contact")}
           </button>
         </div>
