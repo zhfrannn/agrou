@@ -723,9 +723,22 @@ const DEFAULT_FILTERS: Filters = {
   pengiriman: [],
 };
 
+// Normalize incoming kategori param (handles legacy values from Header/TaniPage)
+function normalizeCategory(raw: string | null): string {
+  if (!raw) return "semua";
+  const lower = raw.toLowerCase().trim();
+  if (lower === "semua produk" || lower === "semua") return "semua";
+  // Map display labels to tab ids
+  const map: Record<string, string> = {
+    "pupuk & nutrisi": "pupuk",
+    "paket bundle": "bundle",
+  };
+  return map[lower] ?? lower;
+}
+
 export default function KatalogTaniPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeCategory = searchParams.get("kategori") ?? "semua";
+  const activeCategory = normalizeCategory(searchParams.get("kategori"));
   const [sort, setSort] = useState("Populer");
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   const [page, setPage] = useState(1);
@@ -802,77 +815,83 @@ export default function KatalogTaniPage() {
   return (
     <div className="min-h-screen bg-(--color-cream)">
       {/* HERO */}
-      <section className="relative bg-[#1B4D3E] overflow-hidden py-16">
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d2918 0%, #1a3d2e 50%, #2d6a4f 100%)", minHeight: "320px" }}>
+        {/* Decorative circles */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #b3cc04 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #f77f00 0%, transparent 70%)", transform: "translate(-30%, 30%)" }} />
+        {/* Background image overlay */}
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1600"
-            alt=""
-            className="w-full h-full object-cover opacity-20"
-          />
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1600" alt="" className="w-full h-full object-cover opacity-10" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3">
-              Agrou Tani 🌱
-            </h1>
-            <p className="text-green-200 text-lg mb-8">
-              Produk pertanian berkualitas untuk hasil panen optimal
-            </p>
-            <div className="flex flex-wrap justify-center gap-8">
-              {stats.map((s) => (
-                <div key={s.label} className="text-center">
-                  <p className="text-2xl font-bold text-white">{s.value}</p>
-                  <p className="text-xs text-green-200 mt-0.5">{s.label}</p>
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-xs text-green-300/70 mb-5 font-medium">
+              <span>Beranda</span><span>/</span><span>Marketplace</span><span>/</span><span className="text-[#b3cc04]">Agrou Tani</span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+              <div className="max-w-xl">
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs text-green-200 font-semibold mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#b3cc04] animate-pulse" />
+                  Marketplace Sarana Produksi Pertanian
                 </div>
-              ))}
+                <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Agrou <span style={{ color: "#b3cc04" }}>Tani</span>
+                </h1>
+                <p className="text-green-200 text-base leading-relaxed mb-6 max-w-lg">
+                  Temukan pupuk, pestisida, benih unggul & produk pertanian terverifikasi langsung dari distributor resmi. Harga transparan, pengiriman terjamin.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-2">
+                    {["🌾", "🌿", "🧪", "🌱"].map((e, i) => (
+                      <div key={i} className="w-8 h-8 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center text-sm">{e}</div>
+                    ))}
+                  </div>
+                  <span className="text-xs text-green-200">+500 petani aktif berbelanja</span>
+                </div>
+              </div>
+
+              {/* Stats cards */}
+              <div className="grid grid-cols-3 gap-3 shrink-0">
+                {stats.map((s) => (
+                  <div key={s.label} className="text-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-4">
+                    <p className="text-3xl font-black text-white">{s.value}</p>
+                    <p className="text-xs text-green-300 mt-1 font-medium">{s.label}</p>
+                  </div>
+                ))}
+                <div className="col-span-3 bg-[#b3cc04]/20 border border-[#b3cc04]/30 rounded-2xl px-4 py-3 flex items-center gap-3">
+                  <span className="text-2xl">🤖</span>
+                  <div>
+                    <p className="text-xs font-bold text-[#b3cc04]">Chatbot Diagnosis Hama Gratis</p>
+                    <p className="text-[11px] text-green-300">Tanya Gro-AI untuk rekomendasi produk</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* LIMBAH SIRKULER */}
-      <section className="bg-gradient-to-r from-[#1a3d2e] to-[#2d6a4f] py-8">
+      {/* TRUST BAR */}
+      <section className="bg-white border-b border-gray-100 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <div className="flex items-center gap-2 mb-2 justify-center md:justify-start">
-                <span className="text-2xl">♻️</span>
-                <h2 className="text-white font-bold text-xl">
-                  Kemasan Bekas? Ada Manfaatnya!
-                </h2>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+            {[
+              { icon: "✅", text: "Produk Terverifikasi" },
+              { icon: "🚚", text: "Pengiriman ke Seluruh Indonesia" },
+              { icon: "🔒", text: "Transaksi Aman" },
+              { icon: "♻️", text: "Program Daur Ulang Kemasan" },
+              { icon: "📞", text: "Konsultasi Agronomi Gratis" },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-1.5 text-xs font-semibold text-gray-600">
+                <span>{item.icon}</span>
+                <span>{item.text}</span>
               </div>
-              <p className="text-green-200 text-sm max-w-lg">
-                Kemasan pestisida & pupuk bekas bisa didaur ulang. Agrou Tani
-                mendukung pertanian berkelanjutan dengan program pengelolaan
-                kemasan.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="flex gap-2">
-                {[
-                  { emoji: "🧴", label: "Kemasan Pestisida" },
-                  { emoji: "🪣", label: "Wadah Pupuk" },
-                  { emoji: "📦", label: "Karung Benih" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-white/10 rounded-xl px-3 py-2 text-center border border-white/20"
-                  >
-                    <div className="text-xl mb-1">{item.emoji}</div>
-                    <p className="text-[10px] text-green-200 font-medium whitespace-nowrap">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <button className="bg-(--color-lime) hover:bg-(--color-lime-dark) text-[#1a3d2e] font-bold text-xs px-5 py-2.5 rounded-full transition-all shrink-0 cursor-pointer">
-                Program Daur Ulang →
-              </button>
-            </div>
+            ))}
           </div>
         </div>
       </section>

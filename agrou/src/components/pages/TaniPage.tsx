@@ -1189,11 +1189,10 @@ function HeroChatWidget({ onOpenFull }: { onOpenFull: () => void }) {
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed ${
-                msg.role === "user"
+              className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed ${msg.role === "user"
                   ? "bg-(--color-lime) text-(--color-forest-dark) font-medium rounded-br-sm"
                   : "bg-white/10 text-white/90 rounded-bl-sm"
-              }`}
+                }`}
             >
               {msg.content}
             </div>
@@ -1236,7 +1235,7 @@ function HeroChatWidget({ onOpenFull }: { onOpenFull: () => void }) {
 export default function TaniPage() {
   const navigate = useNavigate();
   const goToKatalog = (category = "Semua Produk") =>
-    navigate("/katalog?kategori=" + encodeURIComponent(category));
+    navigate("/tani/katalog?kategori=" + encodeURIComponent(category));
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // Tutup chatbot saat TaniPage unmount (navigasi ke halaman lain)
@@ -1258,18 +1257,18 @@ export default function TaniPage() {
   const dbMapped: GridProduct[] =
     !productsError && dbShieldProducts && dbShieldProducts.length > 0
       ? dbShieldProducts.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          cat: p.category ?? "Pestisida",
-          price: p.price,
-          originalPrice: p.original_price ?? Math.round(p.price * 1.2),
-          discount: p.discount_percent ?? 0,
-          rating: p.rating ?? 4.5,
-          reviews: p.reviews_count ?? 0,
-          image:
-            p.images?.[0] ??
-            "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=300",
-        }))
+        id: p.id,
+        name: p.name,
+        cat: p.category ?? "Pestisida",
+        price: p.price,
+        originalPrice: p.original_price ?? Math.round(p.price * 1.2),
+        discount: p.discount_percent ?? 0,
+        rating: p.rating ?? 4.5,
+        reviews: p.reviews_count ?? 0,
+        image:
+          p.images?.[0] ??
+          "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=300",
+      }))
       : [];
 
   // Merge DB products with static products; if DB has fewer than 6, pad with static
@@ -1288,8 +1287,8 @@ export default function TaniPage() {
     trendTab === "Semua"
       ? TRENDING_PRODUCTS
       : TRENDING_PRODUCTS.filter((p) =>
-          p.cat.toLowerCase().includes(trendTab.toLowerCase()),
-        );
+        p.cat.toLowerCase().includes(trendTab.toLowerCase()),
+      );
   const trendPages = Math.ceil(trendFiltered.length / 5);
   const trendVisible = trendFiltered.slice(trendPage * 5, trendPage * 5 + 5);
 
@@ -1298,8 +1297,8 @@ export default function TaniPage() {
     popTab === "Semua"
       ? POPULAR_PRODUCTS
       : POPULAR_PRODUCTS.filter((p) =>
-          p.cat.toLowerCase().includes(popTab.toLowerCase()),
-        );
+        p.cat.toLowerCase().includes(popTab.toLowerCase()),
+      );
   const popPages = Math.ceil(popFiltered.length / 5);
   const popVisible = popFiltered.slice(popPage * 5, popPage * 5 + 5);
 
@@ -1798,11 +1797,10 @@ export default function TaniPage() {
                     setTrendTab(tab);
                     setTrendPage(0);
                   }}
-                  className={`text-[11px] font-bold px-3.5 py-1.5 rounded-full border transition-all ${
-                    trendTab === tab
+                  className={`text-[11px] font-bold px-3.5 py-1.5 rounded-full border transition-all ${trendTab === tab
                       ? "bg-[#1B4D3E] text-white border-[#1B4D3E] shadow-sm"
                       : "bg-white text-gray-500 border-gray-200 hover:border-[#1B4D3E] hover:text-[#1B4D3E]"
-                  }`}
+                    }`}
                 >
                   {tab}
                 </button>
@@ -1958,11 +1956,10 @@ export default function TaniPage() {
                     setPopTab(tab);
                     setPopPage(0);
                   }}
-                  className={`text-[11px] font-bold px-3.5 py-1.5 rounded-full border transition-all ${
-                    popTab === tab
+                  className={`text-[11px] font-bold px-3.5 py-1.5 rounded-full border transition-all ${popTab === tab
                       ? "bg-[#1B4D3E] text-white border-[#1B4D3E] shadow-sm"
                       : "bg-white text-gray-500 border-gray-200 hover:border-[#1B4D3E] hover:text-[#1B4D3E]"
-                  }`}
+                    }`}
                 >
                   {tab}
                 </button>

@@ -44,7 +44,7 @@ export default function Header() {
 
   const getActiveTab = (p: string): string | null => {
     if (p === "/") return "beranda";
-    if (p === "/tani" || p.startsWith("/katalog") || p === "/pasar")
+    if (p === "/tani" || p.startsWith("/tani/katalog") || p === "/pasar")
       return "marketplace";
     if (p === "/koperasi" || p.startsWith("/koperasi/")) return "koperasi";
     if (p === "/gro-ai") return "ladangai";
@@ -58,7 +58,7 @@ export default function Header() {
 
   const getCurrentView = (p: string): string => {
     if (p === "/") return "app";
-    if (p === "/tani" || p.startsWith("/katalog")) return "shield";
+    if (p === "/tani" || p.startsWith("/tani/katalog")) return "shield";
     if (p === "/pasar") return "pasar";
     if (p === "/koperasi" || p.startsWith("/koperasi/")) return "koperasi";
     if (p === "/dashboard") return "dashboard";
@@ -90,16 +90,14 @@ export default function Header() {
     <>
       {/* ── FLOATING PILL HEADER (visible when scrolled) ── */}
       <div
-        className={`hidden lg:flex fixed top-0 left-0 right-0 z-60 justify-center pointer-events-none transition-all duration-300 ease-out ${
-          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3"
-        }`}
+        className={`hidden lg:flex fixed top-0 left-0 right-0 z-60 justify-center pointer-events-none transition-all duration-300 ease-out ${isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3"
+          }`}
         style={{ paddingTop: "10px" }}
       >
         {/* Single centered pill — logo + nav + profile semuanya dalam satu pill */}
         <div
-          className={`flex items-center gap-1 backdrop-blur-xl border border-white/70 shadow-xl shadow-black/10 rounded-full px-2 py-2 transition-all ${
-            isScrolled ? "pointer-events-auto" : "pointer-events-none"
-          }`}
+          className={`flex items-center gap-1 backdrop-blur-xl border border-white/70 shadow-xl shadow-black/10 rounded-full px-2 py-2 transition-all ${isScrolled ? "pointer-events-auto" : "pointer-events-none"
+            }`}
           style={{ backgroundColor: "rgba(255,255,255,0.85)" }}
         >
           {/* Logo section (kiri pill) */}
@@ -120,11 +118,10 @@ export default function Header() {
               onClick={() => navigate("/")}
               onMouseEnter={() => setHoveredFloat("beranda")}
               onMouseLeave={() => setHoveredFloat(null)}
-              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveFloat === "beranda"
-                  ? "text-white"
-                  : "text-gray-700"
-              }`}
+              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveFloat === "beranda"
+                ? "text-white"
+                : "text-gray-700"
+                }`}
             >
               {currentActiveFloat === "beranda" && (
                 <motion.div
@@ -144,11 +141,10 @@ export default function Header() {
               className="relative group h-full flex items-center"
             >
               <button
-                className={`relative flex items-center gap-1 px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                  currentActiveFloat === "marketplace"
-                    ? "text-white"
-                    : "text-gray-700"
-                }`}
+                className={`relative flex items-center gap-1 px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveFloat === "marketplace"
+                  ? "text-white"
+                  : "text-gray-700"
+                  }`}
               >
                 {currentActiveFloat === "marketplace" && (
                   <motion.div
@@ -225,8 +221,8 @@ export default function Header() {
                         onClick={() => {
                           if (item.view === "katalog") {
                             navigate(
-                              "/katalog?kategori=" +
-                                encodeURIComponent(item.category),
+                              "/tani/katalog?kategori=" +
+                              encodeURIComponent(item.category),
                             );
                           } else {
                             navigate("/tani");
@@ -286,11 +282,10 @@ export default function Header() {
               onClick={() => navigate("/koperasi")}
               onMouseEnter={() => setHoveredFloat("koperasi")}
               onMouseLeave={() => setHoveredFloat(null)}
-              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveFloat === "koperasi"
-                  ? "text-white"
-                  : "text-gray-700"
-              }`}
+              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveFloat === "koperasi"
+                ? "text-white"
+                : "text-gray-700"
+                }`}
             >
               {currentActiveFloat === "koperasi" && (
                 <motion.div
@@ -308,11 +303,10 @@ export default function Header() {
               onClick={() => navigate("/gro-ai")}
               onMouseEnter={() => setHoveredFloat("ladangai")}
               onMouseLeave={() => setHoveredFloat(null)}
-              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveFloat === "ladangai"
-                  ? "text-white"
-                  : "text-gray-700"
-              }`}
+              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveFloat === "ladangai"
+                ? "text-white"
+                : "text-gray-700"
+                }`}
             >
               {currentActiveFloat === "ladangai" && (
                 <motion.div
@@ -329,11 +323,10 @@ export default function Header() {
               onClick={() => navigate("/connect")}
               onMouseEnter={() => setHoveredFloat("komunitas")}
               onMouseLeave={() => setHoveredFloat(null)}
-              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveFloat === "komunitas"
-                  ? "text-white"
-                  : "text-gray-700"
-              }`}
+              className={`relative px-3.5 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveFloat === "komunitas"
+                ? "text-white"
+                : "text-gray-700"
+                }`}
             >
               {currentActiveFloat === "komunitas" && (
                 <motion.div
@@ -521,9 +514,8 @@ export default function Header() {
               onClick={() => navigate("/")}
               onMouseEnter={() => setHoveredMain("beranda")}
               onMouseLeave={() => setHoveredMain(null)}
-              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveMain === "beranda" ? "text-white" : "text-gray-600"
-              }`}
+              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveMain === "beranda" ? "text-white" : "text-gray-600"
+                }`}
             >
               {currentActiveMain === "beranda" && (
                 <motion.div
@@ -543,11 +535,10 @@ export default function Header() {
               className="relative group h-full flex items-center"
             >
               <button
-                className={`relative flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                  currentActiveMain === "marketplace"
-                    ? "text-white"
-                    : "text-gray-600"
-                }`}
+                className={`relative flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveMain === "marketplace"
+                  ? "text-white"
+                  : "text-gray-600"
+                  }`}
               >
                 {currentActiveMain === "marketplace" && (
                   <motion.div
@@ -626,8 +617,8 @@ export default function Header() {
                         onClick={() => {
                           if (item.view === "katalog") {
                             navigate(
-                              "/katalog?kategori=" +
-                                encodeURIComponent(item.category),
+                              "/tani/katalog?kategori=" +
+                              encodeURIComponent(item.category),
                             );
                           } else {
                             navigate("/tani");
@@ -684,11 +675,10 @@ export default function Header() {
               onClick={() => navigate("/koperasi")}
               onMouseEnter={() => setHoveredMain("koperasi")}
               onMouseLeave={() => setHoveredMain(null)}
-              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveMain === "koperasi"
-                  ? "text-white"
-                  : "text-gray-600"
-              }`}
+              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveMain === "koperasi"
+                ? "text-white"
+                : "text-gray-600"
+                }`}
             >
               {currentActiveMain === "koperasi" && (
                 <motion.div
@@ -706,11 +696,10 @@ export default function Header() {
               onClick={() => navigate("/gro-ai")}
               onMouseEnter={() => setHoveredMain("ladangai")}
               onMouseLeave={() => setHoveredMain(null)}
-              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveMain === "ladangai"
-                  ? "text-white"
-                  : "text-gray-600"
-              }`}
+              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveMain === "ladangai"
+                ? "text-white"
+                : "text-gray-600"
+                }`}
             >
               {currentActiveMain === "ladangai" && (
                 <motion.div
@@ -728,11 +717,10 @@ export default function Header() {
               onClick={() => navigate("/connect")}
               onMouseEnter={() => setHoveredMain("komunitas")}
               onMouseLeave={() => setHoveredMain(null)}
-              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${
-                currentActiveMain === "komunitas"
-                  ? "text-white"
-                  : "text-gray-600"
-              }`}
+              className={`relative px-3 py-1.5 rounded-full text-sm font-bold transition-colors duration-150 cursor-pointer ${currentActiveMain === "komunitas"
+                ? "text-white"
+                : "text-gray-600"
+                }`}
             >
               {currentActiveMain === "komunitas" && (
                 <motion.div
@@ -1336,11 +1324,11 @@ export default function Header() {
                   style={
                     registerType === "koperasi"
                       ? {
-                          borderColor: "var(--color-forest)",
-                          backgroundColor:
-                            "color-mix(in srgb, var(--color-forest) 5%, transparent)",
-                          color: "var(--color-forest)",
-                        }
+                        borderColor: "var(--color-forest)",
+                        backgroundColor:
+                          "color-mix(in srgb, var(--color-forest) 5%, transparent)",
+                        color: "var(--color-forest)",
+                      }
                       : {}
                   }
                 >
@@ -1357,11 +1345,11 @@ export default function Header() {
                   style={
                     registerType === "pembeli"
                       ? {
-                          borderColor: "var(--color-orange)",
-                          backgroundColor:
-                            "color-mix(in srgb, var(--color-orange) 5%, transparent)",
-                          color: "var(--color-orange)",
-                        }
+                        borderColor: "var(--color-orange)",
+                        backgroundColor:
+                          "color-mix(in srgb, var(--color-orange) 5%, transparent)",
+                        color: "var(--color-orange)",
+                      }
                       : {}
                   }
                 >

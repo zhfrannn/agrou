@@ -942,43 +942,63 @@ export default function PasarKomoditasPage() {
   return (
     <div className="min-h-screen bg-(--color-cream)">
       {/* ── HERO BANNER ──────────────────────────────────────────── */}
-      <section className="relative bg-[#1B4D3E] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1600')] bg-cover bg-center opacity-20" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
-              Agrou Pasar <span className="text-4xl">🌾</span>
-            </h1>
-            <p className="text-green-200 text-lg md:text-xl max-w-2xl mx-auto">
-              Komoditas segar langsung dari koperasi tani terpercaya
-            </p>
-          </motion.div>
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d2918 0%, #1a3d2e 50%, #c75f00 200%)", minHeight: "320px" }}>
+        {/* Decorative */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #f77f00 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #b3cc04 0%, transparent 70%)", transform: "translate(-30%, 30%)" }} />
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=1600')] bg-cover bg-center opacity-10" />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
 
-          {/* Stats strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto"
-          >
-            {[
-              { label: "Total Produk", value: PRODUCTS.length },
-              { label: "Koperasi", value: totalKoperasi },
-              { label: "Provinsi", value: totalProvinsi },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="text-center bg-white/10 rounded-2xl py-3 px-2"
-              >
-                <p className="text-2xl font-bold text-white">{s.value}</p>
-                <p className="text-xs text-green-200 mt-0.5">{s.label}</p>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-xs text-green-300/70 mb-5 font-medium">
+              <span>Beranda</span><span>/</span><span>Marketplace</span><span>/</span><span style={{ color: "#f77f00" }}>Agrou Pasar</span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+              <div className="max-w-xl">
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs text-green-200 font-semibold mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "#f77f00" }} />
+                  Pasar Komoditas Koperasi Tani Indonesia
+                </div>
+                <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Agrou <span style={{ color: "#f77f00" }}>Pasar</span>
+                </h1>
+                <p className="text-green-200 text-base leading-relaxed mb-6 max-w-lg">
+                  Beli komoditas pangan langsung dari koperasi desa terpercaya. Harga petani, kualitas ekspor, transparansi penuh.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-2">
+                    {["🌾", "☕", "🐟", "🥬"].map((e, i) => (
+                      <div key={i} className="w-8 h-8 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center text-sm">{e}</div>
+                    ))}
+                  </div>
+                  <span className="text-xs text-green-200">+{totalKoperasi} koperasi aktif bergabung</span>
+                </div>
               </div>
-            ))}
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-3 shrink-0">
+                {[
+                  { label: "Total Produk", value: PRODUCTS.length },
+                  { label: "Koperasi", value: totalKoperasi },
+                  { label: "Provinsi", value: totalProvinsi },
+                ].map((s) => (
+                  <div key={s.label} className="text-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-4">
+                    <p className="text-3xl font-black text-white">{s.value}</p>
+                    <p className="text-xs text-green-300 mt-1 font-medium">{s.label}</p>
+                  </div>
+                ))}
+                <div className="col-span-3 border rounded-2xl px-4 py-3 flex items-center gap-3" style={{ backgroundColor: "rgba(247,127,0,0.15)", borderColor: "rgba(247,127,0,0.3)" }}>
+                  <span className="text-2xl">♻️</span>
+                  <div>
+                    <p className="text-xs font-bold" style={{ color: "#f77f00" }}>Ekonomi Limbah Sirkuler</p>
+                    <p className="text-[11px] text-green-300">Sisa panen jadi peluang produktif</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -1034,11 +1054,10 @@ export default function PasarKomoditasPage() {
               <button
                 key={tab.id}
                 onClick={() => handleCategoryChange(tab.id)}
-                className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeCategory === tab.id
-                    ? "bg-(--color-orange) text-white shadow"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
+                className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === tab.id
+                  ? "bg-(--color-orange) text-white shadow"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
               >
                 {tab.emoji && <span>{tab.emoji}</span>}
                 {tab.label}
@@ -1102,11 +1121,10 @@ export default function PasarKomoditasPage() {
                       setSort(opt);
                       setPage(1);
                     }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      sort === opt
-                        ? "bg-[#F97316] text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${sort === opt
+                      ? "bg-[#F97316] text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      }`}
                   >
                     {opt}
                   </button>

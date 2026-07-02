@@ -39,7 +39,6 @@ const KoperasiProfilePage = lazy(
   () => import("./components/pages/KoperasiProfilePage"),
 );
 const AboutPage = lazy(() => import("./components/pages/AboutPage"));
-const KatalogPage = lazy(() => import("./components/pages/KatalogPage"));
 const PasarKomoditasPage = lazy(
   () => import("./components/pages/PasarKomoditasPage"),
 );
@@ -143,10 +142,9 @@ export default function App() {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/katalog" element={<KatalogPage />} />
+            <Route path="/tani/katalog" element={<KatalogTaniPage />} />
             <Route path="/pasar" element={<PasarPage />} />
             <Route path="/pasar/komoditas" element={<PasarKomoditasPage />} />
-            <Route path="/tani/katalog" element={<KatalogTaniPage />} />
             <Route
               path="/tani"
               element={
